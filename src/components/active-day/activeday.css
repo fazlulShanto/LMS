@@ -1,0 +1,24 @@
+.active-day-container {
+    display: flex;
+    /* background-color: rgba(0, 0, 255, 0.863); */
+    height: 40px;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.day-name {
+    display: inline-block;
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    background-color: #4a9ff0;
+    text-align: center;
+    /* padding: 0 16px; */
+    padding-top: 5px;
+    font-weight: 600;
+    margin-right: 8px;
+}
+.active {
+    background-color: #f178b6;
+}

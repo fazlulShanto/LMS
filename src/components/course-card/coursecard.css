@@ -1,0 +1,23 @@
+.course-card-container {
+    padding: 8px 16px;
+    background-color: #dfdfdf;
+    /* background-color: #e71c1c; */
+    /* height: fit-content; */
+    width: 480px;
+    /* height: 300px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 190px;
+}
+
+.course-card-container h2 {
+    margin: 0;
+}
+.course-stats-section {
+    width: 35%;
+    margin-left: 8px;
+    /* background-color: antiquewhite; */
+    display: flex;
+    flex-direction: column;
+}

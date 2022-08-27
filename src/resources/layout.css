@@ -1,0 +1,41 @@
+@import "~antd/dist/antd.css";
+
+.logo {
+    height: 32px;
+    margin-top: 16px;
+    margin-left: 8px;
+    color: wheat;
+    /* background: rgba(255, 255, 255, 0.3); */
+}
+.logo h1 {
+    color: white;
+}
+.lgo-title {
+    margin: 0;
+    /* margin-left: 8px; */
+    color: white;
+}
+.logo-container {
+    height: 100%;
+    width: 100%;
+    /* background-color: rgb(139, 56, 56); */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.lgo {
+    height: max(100%, 28px);
+}
+.site-layout .site-layout-background {
+    background: #fff;
+    /* background-color: #122033; */
+    /* color: white; */
+}
+[data-theme="dark"] .site-layout .site-layout-background {
+    background: #141414;
+}
+
+.menu-container {
+    margin-top: 16px;
+}

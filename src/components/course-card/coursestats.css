@@ -1,0 +1,19 @@
+.course-stats-container {
+    /* background-color: rgb(218, 201, 235); */
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    /* border: 2px solid red; */
+}
+.course-new-task {
+    /* background-color: aquamarine; */
+    margin-bottom: 8px;
+    text-align: end;
+}
+.new-task-icon-text {
+    margin-left: 8px;
+    font-weight: 600;
+    color: blue;
+}
