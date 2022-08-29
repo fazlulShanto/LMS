@@ -1,25 +1,18 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
+@import "~antd/dist/antd.css";
+
+.logo {
+    height: 32px;
+    margin: 16px;
+    background: rgba(255, 255, 255, 0.2);
 }
-body {
-    background-color: #17597a7a;
+
+.site-layout-sub-header-background {
+    background: #fff;
 }
-.ff {
-    /* font-size: 2rem; */
-    width: min(100vw, 900px);
-    background-color: rgb(193, 223, 207);
+
+.site-layout-background {
+    background: #fff;
 }
-/* .ff input::placeholder {
-    font-size: 16px;
-}
-input[type="text"],
-input[type="email"],
-input[type="number"] {
-    font-size: 16px;
-} */
-.row1 {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+[data-theme="dark"] .site-layout-sub-header-background {
+    background: #141414;
 }
