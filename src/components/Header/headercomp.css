@@ -10,6 +10,7 @@
     padding: 8px 16px;
     border-radius: 4px;
     font-weight: 500;
+    /* visibility: hidden; */
 }
 .ant-layout-header {
     line-height: normal;

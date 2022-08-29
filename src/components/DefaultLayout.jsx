@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/destructuring-assignment */
 
 import {
@@ -9,30 +10,23 @@ import {
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../resources/layout.css';
 import Headercomp from './Header/Headercomp';
 import logo from './lms-logo.png';
-
 // eslint-disable-next-line no-unused-vars
 const { Header, Content, Footer, Sider } = Layout;
 
-function getItem(label, key, icon, children) {
+function getItem(label, key, icon, onClick) {
     return {
         key,
         icon,
-        children,
+        onClick,
         label,
     };
 }
 
-const items = [
-    getItem('Dashboard', '1', <DashboardFilled />),
-    getItem('My Courses', '11', <SketchSquareFilled />),
-    getItem('Messages', '2', <MessageTwoTone />),
-    getItem('Schedule', '3', <ScheduleFilled />),
-    // getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Settings', '4', <SettingFilled />),
-];
+// getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
 
 // eslint-disable-next-line no-unused-vars
 function IconDiv() {
@@ -45,9 +39,47 @@ function IconDiv() {
         </div>
     );
 }
-
+const pages = ['Dashboard', 'My Courses', 'Messages', 'Schedule', 'Settings'];
 function DefaultLayout(props) {
+    // eslint-disable-next-line no-unused-vars
     const [collapsed, setCollapsed] = useState(false);
+    const navigate = useNavigate();
+    const selectedKey = useLocation().pathname;
+    const highlight = () => {
+        if (selectedKey === '/' || selectedKey === '/dash') {
+            return ['1'];
+        }
+        if (selectedKey === '/mycourses') {
+            return ['2'];
+        }
+        if (selectedKey === '/chat') {
+            return ['3'];
+        }
+        if (selectedKey === '/schedule') {
+            return ['4'];
+        }
+        if (selectedKey === '/settings') {
+            return ['5'];
+        }
+    };
+    const items = [
+        getItem('Dashboard', '1', <DashboardFilled />, () => {
+            navigate('/dash');
+        }),
+        getItem('My Courses', '2', <SketchSquareFilled />, () => {
+            navigate('/mycourses');
+        }),
+        getItem('Messages', '3', <MessageTwoTone />, () => {
+            navigate('/chat');
+        }),
+        getItem('Schedule', '4', <ScheduleFilled />, () => {
+            navigate('/schedule');
+        }),
+        getItem('Settings', '5', <SettingFilled />, () => {
+            navigate('/settings');
+        }),
+    ];
+
     return (
         <Layout
             style={{
@@ -62,8 +94,8 @@ function DefaultLayout(props) {
                     top: 0,
                     left: 0,
                 }}
-                collapsible
-                collapsed={collapsed}
+                // collapsible
+                // collapsed={collapsed}
                 onCollapse={(value) => setCollapsed(value)}
             >
                 <div className="logo">
@@ -73,6 +105,7 @@ function DefaultLayout(props) {
                     theme="dark"
                     className="menu-container"
                     defaultSelectedKeys={['1']}
+                    selectedKeys={highlight()}
                     mode="inline"
                     items={items}
                 />
@@ -85,7 +118,8 @@ function DefaultLayout(props) {
                         // backgroundColor: '#122033',
                     }}
                 >
-                    <Headercomp />
+                    {console.log()}
+                    <Headercomp pageName={pages[parseInt(highlight().shift() - 1, 10)]} />
                 </Header>
                 <Content
                     style={{

@@ -4,6 +4,7 @@ import './loginform.css';
 
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
+import { Link } from 'react-router-dom';
 
 function Loginform() {
     const onFinish = (values) => {
@@ -64,9 +65,8 @@ function Loginform() {
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             Log in
                         </Button>
-                        <span className="register-now-div">
-                            Or <a href="">register now!</a>
-                        </span>
+                        <span className="register-now-div">Or</span>
+                        <Link to="/signup">Register now!</Link>
                     </Form.Item>
                 </Form>
             </div>
