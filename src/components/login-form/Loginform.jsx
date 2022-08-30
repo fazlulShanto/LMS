@@ -56,9 +56,9 @@ function Loginform() {
                             <Checkbox>Remember me</Checkbox>
                         </Form.Item>
 
-                        <a className="login-form-forgot" href="">
+                        <Link className="login-form-forgot" to="/forgotpass">
                             Forgot password
-                        </a>
+                        </Link>
                     </Form.Item>
 
                     <Form.Item className="form-space-between">

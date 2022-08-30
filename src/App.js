@@ -4,6 +4,7 @@ import './app.css';
 import Loginform from './components/login-form/Loginform';
 import MyCourses from './pages/courses/MyCourses';
 import Dashboard from './pages/DashBoard/Dashboard';
+import ForgotPassword from './pages/forgot-password/ForgotPassword';
 import MessengerPage from './pages/Messenger/MessengerPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import SchedulePage from './pages/schedule/SchedulePage';
@@ -33,6 +34,8 @@ function App() {
                 <Route path="/mycourses" element={<MyCourses />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/login" element={<Loginform />} />
+                <Route path="/forgotpass" element={<ForgotPassword />} />
             </Routes>
         </div>
     );
