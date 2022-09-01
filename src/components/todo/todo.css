@@ -6,4 +6,8 @@
     padding: 8px 16px;
     border-radius: 8px;
     overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
