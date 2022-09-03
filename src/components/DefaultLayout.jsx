@@ -61,6 +61,10 @@ function DefaultLayout(props) {
         if (selectedKey === '/settings') {
             return ['5'];
         }
+        if (selectedKey === '/profile') {
+            return ['5'];
+        }
+        return ['5'];
     };
     const items = [
         getItem('Dashboard', '1', <DashboardFilled />, () => {

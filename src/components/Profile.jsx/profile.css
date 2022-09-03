@@ -1,0 +1,40 @@
+.profile_photo {
+    /* background-color: red; */
+    height: 100px;
+    width: 100px;
+}
+.profile_photo_div {
+    height: 100px;
+    width: 100px;
+    background-color: aliceblue;
+    border-radius: 50%;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.test1 {
+    margin-top: 8px;
+    /* background-color: rgb(37, 152, 253); */
+    text-align: center;
+}
+.profileCardContainer {
+    /* border: 1px solid blue; */
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profileStatsDiv {
+    width: 100%;
+    /* border: 1px solid red; */
+}
+.socialIconDiv {
+    height: 26px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.socialIconItem {
+    font-size: 24px;
+}

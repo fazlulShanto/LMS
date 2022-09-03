@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
+
 import { Button, Form, Input } from 'antd';
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const todoApiUrl = `http://localhost:3003/api/todo/`;
-function TodoInput({ userId }) {
+function TodoInput({ userId, forceReload }) {
+    const [form] = Form.useForm();
     const postTodo = (text) => {
         const config = {
             url: `${todoApiUrl}add/${userId}/?text=${text}`,
         };
-        console.log(config.url);
+        // console.log(config.url);
         axios
             .post(config.url)
             .then((response) => {
@@ -22,18 +24,24 @@ function TodoInput({ userId }) {
                 console.log(error);
             });
 
-        console.log('done');
+        // console.log('done');
     };
     const onFinish = (values: any) => {
-        console.log('Success:', values);
+        // console.log('Success:', values);
         postTodo(values.todo_text);
+        forceReload();
+        // eslint-disable-next-line no-param-reassign
+        form.resetFields();
+
+        // console.log(forceReload);
         // message.success('done');
     };
 
-    useEffect(() => {}, []);
+    // useEffect(() => {}, []);
 
     return (
         <Form
+            form={form}
             layout="inline"
             name="basic"
             onFinish={onFinish}
