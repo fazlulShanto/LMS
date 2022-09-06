@@ -1,13 +1,94 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
-import { Button, Col, DatePicker, Form, Input, Row } from 'antd';
-import React from 'react';
+import { Button, Col, DatePicker, Form, Input, message, Row } from 'antd';
+import axios from 'axios';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 
-function ProfileForm() {
+function ProfileForm({ userId = 3 }) {
+    const apiUrl = `http://localhost:3003/api/user/get/${userId}`;
+    // const
+    const proArray = [];
+    const [form] = Form.useForm();
+    const [afterLoad, setAfterLoad] = useState(false);
+    const [oldData, setOldData] = useState({});
     const onFinish = (values) => {
-        console.log('Success:', values);
+        // console.log('Success:', values);
+        const postUrl = `http://localhost:3003/api/user`;
+        const config = {
+            method: 'post',
+
+            url: `${postUrl}/set/${userId}`,
+            headers: { ...values },
+        };
+
+        axios(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+                message.success('Updated!', 0.5);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        // setAfterLoad(!afterLoad);
     };
+
+    useEffect(() => {
+        axios
+            .get(apiUrl)
+            .then(
+                (res) => {
+                    if (afterLoad) {
+                        // console.log(res.data);
+                        const {
+                            first_name,
+                            last_name,
+                            phone,
+                            email,
+                            birth_date,
+                            address,
+                            student_id,
+                            session,
+                            hall_name,
+                            blood_group,
+                            bio,
+                            fb,
+                            github,
+                        } = res.data;
+                        console.log(new Date(birth_date));
+                        // setOldData(res.data);
+                        form.setFieldValue('first_name', first_name || '');
+                        form.setFieldValue('last_name', last_name || '');
+                        form.setFieldValue('phone', phone || '');
+                        form.setFieldValue('email', email || '');
+
+                        form.setFieldValue('p_addr', address || '');
+                        form.setFieldValue('birth_date', moment(birth_date) || '');
+                        form.setFieldValue('student_id', student_id || '');
+                        form.setFieldValue('session', session || '');
+                        form.setFieldValue('hall_name', hall_name || '');
+                        form.setFieldValue('blood_group', blood_group || '');
+                        form.setFieldValue('bio', bio || '');
+                        form.setFieldValue('facebook_link', fb || '');
+                        form.setFieldValue('github', github || '');
+                        setOldData(res.data);
+                    }
+
+                    // handleReload(res.data);
+                    // console.log(res.data.first_name);
+                    setAfterLoad(true);
+                    // console.log(`${oldData.id}here`);
+                },
+                [userId]
+            )
+            .catch((er) => console.log(er));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [afterLoad]);
+    // setFirstName('hia');
+
     return (
-        <Form layout="vertical" onFinish={onFinish} autoComplete="off">
+        <Form layout="vertical" onFinish={onFinish} autoComplete="off" form={form}>
             <Row gutter={16}>
                 <Col span={12}>
                     <Form.Item
@@ -121,8 +202,8 @@ function ProfileForm() {
                 </Col>
                 <Col span={12}>
                     <Form.Item
-                        name="sesstion"
-                        label="sesstion"
+                        name="session"
+                        label="session"
                         rules={[
                             {
                                 required: true,
@@ -197,7 +278,7 @@ function ProfileForm() {
                 <Col span={12}>
                     <Form.Item
                         name="github"
-                        label="Last Name"
+                        label="Github Profile Link"
                         rules={[
                             {
                                 required: false,
