@@ -1,0 +1,8 @@
+@import "~antd/dist/antd.css";
+
+[data-theme="compact"] .ant-drawer-body p {
+    margin-bottom: 0;
+}
+.atchm {
+    margin-bottom: 10px;
+}

@@ -1,7 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { Route, Routes } from 'react-router-dom';
 import './app.css';
+import AddLesson from './components/create-course/AddLesson';
+import CreateCourse from './components/create-course/CreateCourse';
 import Loginform from './components/login-form/Loginform';
+import Course from './components/Single-Course/Course';
+import User from './components/users/User';
 import MyCourses from './pages/courses/MyCourses';
 import Dashboard from './pages/DashBoard/Dashboard';
 import ForgotPassword from './pages/forgot-password/ForgotPassword';
@@ -32,10 +36,16 @@ function App() {
                 <Route path="/chat" element={<MessengerPage />} />
                 <Route path="/schedule" element={<SchedulePage />} />
                 <Route path="/mycourses" element={<MyCourses />} />
+
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Loginform />} />
                 <Route path="/forgotpass" element={<ForgotPassword />} />
+                <Route path="user/:id" element={<User />} />
+                <Route path="course/:id" element={<Course />} />
+                <Route path="course" element={<Course />} />
+                <Route path="create" element={<CreateCourse />} />
+                <Route path="add" element={<AddLesson />} />
             </Routes>
         </div>
     );

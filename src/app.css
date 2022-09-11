@@ -16,3 +16,7 @@
 [data-theme="dark"] .site-layout-sub-header-background {
     background: #141414;
 }
+
+.mr-bot-8 {
+    margin-bottom: 8px;
+}

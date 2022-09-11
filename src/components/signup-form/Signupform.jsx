@@ -106,7 +106,17 @@ function SignupForm() {
                         />
                     </Form.Item>
                     <Form.Item>
-                        <Form.Item name="remember" valuePropName="checked" noStyle>
+                        <Form.Item
+                            name="tos"
+                            valuePropName="checked"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'You have to agree with the ToS',
+                                },
+                            ]}
+                            noStyle
+                        >
                             <Checkbox>Accept terms & Conditions</Checkbox>
                         </Form.Item>
                     </Form.Item>
