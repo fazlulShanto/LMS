@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { Button, Col, Form, Input, Row, Space } from 'antd';
+import { Button, Col, Form, Input, message, Row, Space } from 'antd';
+import axios from 'axios';
 import React, { useState } from 'react';
 import Lesson from '../lesson/Lesson';
 import AddLesson from './AddLesson';
@@ -15,7 +16,31 @@ function CreateCourse() {
     };
     const onFinish = (values) => {
         console.log(values);
+        console.log(lesson);
         console.log(courseInfo);
+        const courseUid = Math.random().toString(16).slice(2);
+        const config = {
+            method: 'post',
+            url: 'http://localhost:3003/api/course',
+            headers: {
+                id: courseUid,
+                name: values.course_name,
+                code: values.course_code,
+                desc: values.syllabus,
+                othersinfo: values.marks_info,
+                instructor: 'Teacher Name',
+            },
+        };
+
+        axios(config)
+            .then((response) => {
+                if (response.status === 200) {
+                    message.success('new Course Created');
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -101,7 +126,7 @@ function CreateCourse() {
                 </Row>
                 <Row gutter={16}>
                     <Col span={10}>
-                        <AddLesson />
+                        <AddLesson courseUid="0a39061907d45" />
                     </Col>
                 </Row>
                 <Row>

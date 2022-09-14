@@ -1,7 +1,9 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-unused-vars */
 import { SettingOutlined } from '@ant-design/icons';
 import { Collapse } from 'antd';
 import React from 'react';
+
 import LessonContent from '../panel/LessonContent';
 
 const { useState } = React;
@@ -13,13 +15,13 @@ const text = `
   it can be found:a welcome guest in many households across the world.
 `;
 
-function Lesson() {
+function Lesson({ delta }) {
     const objs = {
         title: 'Lesson 1: this is title',
         delta: {
             ops: [
                 {
-                    insert: 'Lesson Header',
+                    insert: 'Default',
                 },
                 {
                     attributes: {
@@ -34,6 +36,10 @@ function Lesson() {
             ],
         },
     };
+    // console.log('DD');
+    // console.log(delta);
+    const defaultDelta = [objs, objs];
+    const lessons = delta?.length ? delta : defaultDelta;
 
     const onChange = (key) => {
         console.log(key);
@@ -48,12 +54,19 @@ function Lesson() {
             }}
         />
     );
-
+    // console.log(lessons);
+    // useEffect(() => {}, [delta.length]);
     return (
         <Collapse defaultActiveKey={['1']} onChange={onChange}>
-            <Panel header="Lesson 1" key="1" extra={genExtra()}>
-                <LessonContent data={objs} />
-            </Panel>
+            {/* <Panel header="Lesson 1" key="1" extra={genExtra()}>
+                <LessonContent data={objs} key={Math.random()} />
+            </Panel> */}
+            {lessons.map((v, idx) => (
+                <Panel header={`Lesson ${idx + 1}`} key={Math.random()}>
+                    {/* {console.log(JSON.parse(v.delta))} */}
+                    <LessonContent data={v.delta} />
+                </Panel>
+            ))}
         </Collapse>
     );
 }

@@ -14,7 +14,10 @@ const text = `
 `;
 
 function LessonContent({ data }) {
-    return <ViewEditor delta={data.delta} />;
+    console.log('dt');
+    console.log(JSON.parse(data));
+    const k = JSON.parse(data);
+    return <ViewEditor delta={k} />;
 }
 
 export default LessonContent;

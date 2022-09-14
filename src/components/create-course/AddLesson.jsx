@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Col, Drawer, Form, Input, Row, Space } from 'antd';
+import { Button, Col, Drawer, Form, Input, message, Row, Space } from 'antd';
+import axios from 'axios';
 import React, { useState } from 'react';
 import NewEditor from '../Editor/NewEditor';
 import CourseAttachment from '../upload/CourseAttachment';
@@ -8,7 +9,7 @@ import CourseAttachment from '../upload/CourseAttachment';
 
 import './addLesson.css';
 
-function AddLesson({ handleTitle, handleDelta }) {
+function AddLesson({ handleTitle, handleDelta, courseUid }) {
     const [open, setOpen] = useState(false);
     const [edi, setEdi] = useState({});
     const showDrawer = () => {
@@ -34,6 +35,27 @@ function AddLesson({ handleTitle, handleDelta }) {
             delta: edi,
         };
         console.log(lessonObject);
+        const config = {
+            method: 'post',
+            url: 'http://localhost:3003/api/course/add/lesson',
+            headers: {
+                lessonId: Math.random().toString(16).slice(2),
+                course_uid: courseUid,
+                title: values.lesson_title,
+                delta: JSON.stringify(edi),
+            },
+        };
+
+        axios(config)
+            .then((response) => {
+                if (response.status === 200) {
+                    message.success('added new  lesson');
+                    console.log(response);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         setOpen(false);
     };
     const onFinishFailed = (errorInfo) => {
