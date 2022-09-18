@@ -1,32 +1,17 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-vars */
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, Col, Drawer, Form, Input, message, Row, Space } from 'antd';
+import { Button, Col, Form, Input, Row } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
 import NewEditor from '../Editor/NewEditor';
 import CourseAttachment from '../upload/CourseAttachment';
-// import Editor from '../Editor/Editor';
+import CourseDropDown from './CourseDropDown';
 
-import './addLesson.css';
+const FormData = require('form-data');
 
-function AddLesson({ handleTitle, handleDelta, courseUid }) {
-    const [open, setOpen] = useState(false);
+function NewLesson({ handleTitle, handleDelta, courseUid }) {
     const [edi, setEdi] = useState({});
-    const [studyMaterial, setStudyMaterial] = useState({});
-    const showDrawer = () => {
-        setOpen(true);
-    };
-
-    const onClose = () => {
-        setOpen(false);
-    };
-    const handleChange = (ev) => {
-        console.log(ev.target.value);
-        // handleTitle(ev.target.value);
-    };
-    const handledelta = (delta) => {
-        setEdi(delta);
-    };
     const onFinish = (values) => {
         // console.log('Success:', values);
         // console.log(`real Delta :`, edi);
@@ -36,59 +21,70 @@ function AddLesson({ handleTitle, handleDelta, courseUid }) {
             delta: JSON.stringify(edi),
         };
         console.log(lessonObject);
-        const bodyFormData = new FormData();
-        bodyFormData.append('title', lessonObject.title);
-        bodyFormData.append('delta', lessonObject.delta);
-        bodyFormData.append('resources', studyMaterial);
+        // const config = {
+        //     method: 'post',
+        //     url: 'http://localhost:3003/api/course/addlesson',
+        //     headers: {
+        //         'Access-Control-Allow-Origin': '*',
+        //         // Accept: 'application/json, text/plain, /',
+        //         // 'Content-Type': 'multipart/form-data',
+        //         lessonId: Math.random().toString(16).slice(2),
+        //         // course_uid: courseUid,
+        //         title: values.lesson_title,
+        //         delta: JSON.stringify(edi),
+        //     },
+        // };
+
+        // axios(config)
+        //     .then((response) => {
+        //         console.log('res');
+        //         if (response.status === 200) {
+        //             message.success('added new  lesson');
+        //             console.log(response);
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.log('her');
+        //         console.log(error);
+        //     });
+        const data = new FormData();
         const config = {
             method: 'post',
             url: 'http://localhost:3003/api/course/addlesson',
             headers: {
-                course_uid: courseUid,
-                lessonid: Math.random().toString(16).slice(2),
-                'Content-Type': 'multipart/form-data',
+                title: 'this is title',
+                course_uid: '473f8eaaef713',
+                lessonId: 'less1',
+                delta: lessonObject.delta,
             },
-            data: bodyFormData,
+            data,
         };
         axios(config)
             .then((response) => {
-                if (response.status === 200) {
-                    message.success('added new  lesson');
-                    console.log(response);
-                }
                 console.log(JSON.stringify(response.data));
             })
             .catch((error) => {
                 console.log(error);
             });
-
-        setOpen(false);
+    };
+    const handleChange = (ev) => {
+        console.log(ev.target.value);
+        // handleTitle(ev.target.value);
+    };
+    const handledelta = (delta) => {
+        setEdi(delta);
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
     return (
-        <div className="atchm">
-            <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
-                New Lesson
-            </Button>
-            <Drawer
-                title="Create a new Lesson"
-                width="80%"
-                onClose={onClose}
-                open={open}
-                bodyStyle={{
-                    paddingBottom: 80,
-                }}
-                extra={
-                    <Space>
-                        <Button onClick={onClose}>Cancel</Button>
-                        {/* <Button onClick={onClose} type="primary">
-                            Submit
-                        </Button> */}
-                    </Space>
-                }
-            >
+        <div>
+            <div>
+                <CourseDropDown />
+            </div>
+
+            <div>
                 <Form layout="vertical" onFinish={onFinish} onFinishFailed={onFinishFailed}>
                     <Row gutter={16}>
                         <Col span={12}>
@@ -118,9 +114,9 @@ function AddLesson({ handleTitle, handleDelta, courseUid }) {
                         </Button>
                     </Form.Item>
                 </Form>
-            </Drawer>
+            </div>
         </div>
     );
 }
 
-export default AddLesson;
+export default NewLesson;

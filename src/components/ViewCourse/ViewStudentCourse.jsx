@@ -15,12 +15,14 @@ function ViewStudentCourse() {
 
     const nav = useNavigate();
     const loc = useLocation().pathname.split('/').pop();
+
     useEffect(() => {
         const config = {
             method: 'get',
             url: 'http://localhost:3003/api/course',
             headers: {
-                id: '0a39061907d45',
+                'Access-Control-Allow-Origin': '*',
+                id: loc,
             },
         };
 

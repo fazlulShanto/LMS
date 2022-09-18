@@ -36,14 +36,7 @@ function NewEditor({ handleChange }) {
             toolbar: [
                 [{ header: [1, 2, 3, 4, 5, 6, false] }],
                 ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                [
-                    { list: 'ordered' },
-                    { list: 'bullet' },
-                    { indent: '-1' },
-                    { indent: '+1' },
-                    { align: '-1' },
-                    { align: '+1' },
-                ],
+                [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
                 ['code-block'],
                 ['link', 'image', 'video'],
                 ['clean'],
@@ -66,7 +59,6 @@ function NewEditor({ handleChange }) {
         'code-block',
         'color',
         'bullet',
-        'indent',
         'link',
         'image',
         'video',

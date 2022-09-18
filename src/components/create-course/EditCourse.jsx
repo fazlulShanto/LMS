@@ -2,23 +2,26 @@
 import { Button, Col, Form, Input, message, Row, Space } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
+import CourseDropDown from './CourseDropDown';
 
 import './createcourse.css';
 // import Editor from '../Editor/Editor';
 
-function CreateCourse() {
+function EditCourse() {
+    const [form] = Form.useForm();
     const [courseInfo, setCourseInfo] = useState('');
-    const [lesson, setLesson] = useState([1, 2, 3]);
+    const [courseUid, setCourseUid] = useState('');
+    const [disableForm, setDisableForm] = useState(true);
+
     const handleChange = (v, av) => {
         setCourseInfo(av);
     };
     const onFinish = (values) => {
         console.log(values);
-        console.log(lesson);
         console.log(courseInfo);
-        const courseUid = Math.random().toString(16).slice(2);
+
         const config = {
-            method: 'post',
+            method: 'get',
             url: 'http://localhost:3003/api/course',
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -34,7 +37,7 @@ function CreateCourse() {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    message.success('new Course Created');
+                    message.success('Course Updated');
                 }
             })
             .catch((error) => {
@@ -45,10 +48,38 @@ function CreateCourse() {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+    const onSelect = (selected) => {
+        setDisableForm(false);
+        setCourseUid(selected);
+        axios
+            .get('http://localhost:3003/api/course', {
+                headers: {
+                    id: selected,
+                },
+            })
+            .then((res) => {
+                setCourseInfo(res.data);
+
+                form.setFieldValue('course_code', res.data.code || '');
+                form.setFieldValue('course_name', res.data.name || '');
+                form.setFieldValue('syllabus', res.data.desc || '');
+                form.setFieldValue('marks_info', res.data.othersinfo || '');
+                console.log(res.data);
+            })
+            .catch((er) => console.log(er));
+        // console.log(selected);
+    };
 
     return (
         <div className="create-Course-container">
+            <Row>
+                <Col span={16}>
+                    <CourseDropDown detectSelect={onSelect} />
+                </Col>
+            </Row>
             <Form
+                form={form}
+                disabled={disableForm}
                 layout="vertical"
                 onFinish={onFinish}
                 autoComplete="off"
@@ -130,4 +161,4 @@ function CreateCourse() {
     );
 }
 
-export default CreateCourse;
+export default EditCourse;

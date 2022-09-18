@@ -14,8 +14,8 @@ const text = `
 `;
 
 function LessonContent({ data }) {
-    console.log('dt');
-    console.log(JSON.parse(data));
+    // console.log('dt');
+    // console.log(JSON.parse(data));
     const k = JSON.parse(data);
     return <ViewEditor delta={k} />;
 }

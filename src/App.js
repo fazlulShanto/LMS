@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import './app.css';
 import AddLesson from './components/create-course/AddLesson';
 import CreateCourse from './components/create-course/CreateCourse';
+import NewLesson from './components/create-course/NewLesson';
 import Loginform from './components/login-form/Loginform';
 import Course from './components/Single-Course/Course';
 import User from './components/users/User';
@@ -46,6 +47,7 @@ function App() {
                 <Route path="course" element={<Course />} />
                 <Route path="create" element={<CreateCourse />} />
                 <Route path="add" element={<AddLesson />} />
+                <Route path="new" element={<NewLesson />} />
             </Routes>
         </div>
     );
