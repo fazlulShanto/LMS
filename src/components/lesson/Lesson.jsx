@@ -16,30 +16,10 @@ const text = `
 `;
 
 function Lesson({ delta }) {
-    const objs = {
-        title: 'Lesson 1: this is title',
-        delta: {
-            ops: [
-                {
-                    insert: 'Default',
-                },
-                {
-                    attributes: {
-                        indent: 3,
-                        header: 1,
-                    },
-                    insert: '\n',
-                },
-                {
-                    insert: 'Welcome to the lesson 1 \n',
-                },
-            ],
-        },
-    };
     // console.log('DD');
     // console.log(delta);
-    const defaultDelta = [objs, objs];
-    const lessons = delta?.length ? delta : defaultDelta;
+
+    const lessons = delta?.length ? delta : [];
 
     const onChange = (key) => {
         console.log(key);
@@ -62,9 +42,9 @@ function Lesson({ delta }) {
                 <LessonContent data={objs} key={Math.random()} />
             </Panel> */}
             {lessons.map((v, idx) => (
-                <Panel header={`Lesson ${idx + 1}`} key={Math.random()}>
-                    {/* {console.log(JSON.parse(v.delta))} */}
-                    <LessonContent data={v.delta} />
+                <Panel header={`Lesson ${idx + 1} : ${v.title}`} key={v.id || Math.random()}>
+                    {/* {console.log(v.id)} */}
+                    <LessonContent delta={v.delta} data={v} />
                 </Panel>
             ))}
         </Collapse>

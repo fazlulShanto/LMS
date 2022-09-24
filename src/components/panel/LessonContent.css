@@ -1,1 +1,19 @@
 @import "~antd/dist/antd.css";
+.doc-resources {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: fit-content;
+
+    border: 2px solid antiquewhite;
+    font-size: 1.1rem;
+    background-color: aliceblue;
+    padding: 4px 8px;
+}
+.doc-resources a {
+    color: rgb(9, 12, 202);
+}
+
+.course-video-player {
+    padding: 8px;
+    width: fit-content;
+}
