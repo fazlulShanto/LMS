@@ -5,6 +5,7 @@ import AddLesson from './components/create-course/AddLesson';
 import CreateCourse from './components/create-course/CreateCourse';
 import NewLesson from './components/create-course/NewLesson';
 import Loginform from './components/login-form/Loginform';
+import Quizz from './components/quizz/Quizz';
 import Course from './components/Single-Course/Course';
 import User from './components/users/User';
 import MyCourses from './pages/courses/MyCourses';
@@ -48,6 +49,7 @@ function App() {
                 <Route path="create" element={<CreateCourse />} />
                 <Route path="add" element={<AddLesson />} />
                 <Route path="new" element={<NewLesson />} />
+                <Route path="quizz" element={<Quizz />} />
             </Routes>
         </div>
     );

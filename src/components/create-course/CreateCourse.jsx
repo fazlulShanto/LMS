@@ -9,6 +9,8 @@ import './createcourse.css';
 function CreateCourse() {
     const [courseInfo, setCourseInfo] = useState('');
     const [lesson, setLesson] = useState([1, 2, 3]);
+    const [userId, setUserId] = useState('12');
+
     const handleChange = (v, av) => {
         setCourseInfo(av);
     };
@@ -28,6 +30,7 @@ function CreateCourse() {
                 desc: values.syllabus,
                 othersinfo: values.marks_info,
                 instructor: 'Teacher Name',
+                creatorid: userId,
             },
         };
 
@@ -39,6 +42,8 @@ function CreateCourse() {
             })
             .catch((error) => {
                 console.log(error);
+                message.error(`Failed to create new course.
+                check course name & course Code.Make sure they are unique.`);
             });
     };
 

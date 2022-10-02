@@ -1,17 +1,20 @@
 /* eslint-disable no-unused-vars */
 import { Button, Col, Form, Input, message, Row, Space } from 'antd';
 import axios from 'axios';
-import React, { useState } from 'react';
-import CourseDropDown from './CourseDropDown';
+import React, { useReducer, useState } from 'react';
 
+import LessonWithControll from '../lesson/LessonWithControll';
+import CourseDropDown from './CourseDropDown';
 import './createcourse.css';
 // import Editor from '../Editor/Editor';
 
 function EditCourse() {
+    const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
     const [form] = Form.useForm();
     const [courseInfo, setCourseInfo] = useState('');
     const [courseUid, setCourseUid] = useState('');
     const [disableForm, setDisableForm] = useState(true);
+    const [lessons, setLessons] = useState({});
 
     const handleChange = (v, av) => {
         setCourseInfo(av);
@@ -21,10 +24,12 @@ function EditCourse() {
         console.log(courseInfo);
 
         const config = {
-            method: 'get',
+            method: 'put',
             url: 'http://localhost:3003/api/course',
             headers: {
                 'Access-Control-Allow-Origin': '*',
+            },
+            data: {
                 id: courseUid,
                 name: values.course_name,
                 code: values.course_code,
@@ -46,6 +51,7 @@ function EditCourse() {
     };
 
     const onFinishFailed = (errorInfo) => {
+        message.error('Failed to update the course!');
         console.log('Failed:', errorInfo);
     };
     const onSelect = (selected) => {
@@ -59,22 +65,54 @@ function EditCourse() {
             })
             .then((res) => {
                 setCourseInfo(res.data);
-
+                // console.log(Object.keys(res.data));
+                setLessons(res.data.lessons);
                 form.setFieldValue('course_code', res.data.code || '');
                 form.setFieldValue('course_name', res.data.name || '');
                 form.setFieldValue('syllabus', res.data.desc || '');
                 form.setFieldValue('marks_info', res.data.othersinfo || '');
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch((er) => console.log(er));
         // console.log(selected);
     };
 
+    const deleteCourse = (ev) => {
+        const config = {
+            method: 'delete',
+            url: 'http://localhost:3003/api/course',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                course_uid: courseUid,
+            },
+        };
+
+        axios(config)
+            .then((response) => {
+                if (response.status === 200) {
+                    message.success('Course Deleted');
+                }
+            })
+            .catch((error) => {
+                message.error(`can't delete the course!`);
+                console.log(error);
+            });
+        console.log('delete maro mujeh', courseUid);
+        forceUpdate();
+    };
+
+    // console.log(lessons);
+
     return (
         <div className="create-Course-container">
             <Row>
-                <Col span={16}>
+                <Col span={20}>
                     <CourseDropDown detectSelect={onSelect} />
+                </Col>
+                <Col>
+                    <Button type="primary" danger disabled={disableForm} onClick={deleteCourse}>
+                        Delete Course
+                    </Button>
                 </Col>
             </Row>
             <Form
@@ -156,6 +194,13 @@ function EditCourse() {
                     </Col>
                 </Row>
             </Form>
+            <Row>
+                <Col span={24}>
+                    <div className="course-lesson-div">
+                        <LessonWithControll delta={lessons} courseUid={courseUid} />
+                    </div>
+                </Col>
+            </Row>
             <Space />
         </div>
     );
