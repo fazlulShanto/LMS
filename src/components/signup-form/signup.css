@@ -1,18 +1,15 @@
 .ant-switch {
-    background-color: blueviolet;
+    background-color: red;
     background-image: none;
 }
 .ant-switch-checked {
-    background-color: aqua;
+    background-color: green;
 }
 .dif {
     padding: 16px 30px;
 }
-/* .ant-switch-checked .ant-switch-handle {
-    left: 0;
-    right: 10px;
-} */
-.ant-switch:focus {
+
+/* .ant-switch:focus {
     right: 10px;
 }
 .ant-switch-handle::before {
@@ -21,18 +18,18 @@
     border-radius: 50%;
     left: -10px;
     top: -1px;
-}
+} */
 .ant-switch-handle::before {
     /* height: 30px;
     width: 30px; 
     border-radius: 50%;*/
-    right: 10px;
-    top: -1px;
+    /* right: 10px;
+    top: -1px; */
 }
-.ant-switch-checked .ant-switch-inner {
+/* .ant-switch-checked .ant-switch-inner {
     margin-top: -10px;
 }
 
 .ant-switch-inner {
     margin-top: -10px;
-}
+} */

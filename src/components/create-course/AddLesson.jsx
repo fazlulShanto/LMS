@@ -35,7 +35,7 @@ function AddLesson({ handleTitle, handleDelta, courseUid }) {
             title: values.lesson_title,
             delta: JSON.stringify(edi),
         };
-        console.log(lessonObject);
+        // console.log(lessonObject);
         const bodyFormData = new FormData();
         bodyFormData.append('title', lessonObject.title);
         bodyFormData.append('delta', lessonObject.delta);

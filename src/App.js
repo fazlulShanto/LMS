@@ -6,6 +6,8 @@ import CreateCourse from './components/create-course/CreateCourse';
 import NewLesson from './components/create-course/NewLesson';
 import Loginform from './components/login-form/Loginform';
 import Quizz from './components/quizz/Quizz';
+import SingleQuizzQuestion from './components/quizz/SingleQuizzQuestion';
+import ViewQuiz from './components/quizz/ViewQuiz';
 import Course from './components/Single-Course/Course';
 import User from './components/users/User';
 import MyCourses from './pages/courses/MyCourses';
@@ -50,6 +52,9 @@ function App() {
                 <Route path="add" element={<AddLesson />} />
                 <Route path="new" element={<NewLesson />} />
                 <Route path="quizz" element={<Quizz />} />
+                <Route path="quiz2" element={<SingleQuizzQuestion />} />
+                <Route path="vq" element={<ViewQuiz />} />
+                <Route path="vq/:id" element={<ViewQuiz />} />
             </Routes>
         </div>
     );
