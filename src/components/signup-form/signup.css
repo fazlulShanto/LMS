@@ -8,7 +8,9 @@
 .dif {
     padding: 16px 30px;
 }
-
+.signup-form {
+    width: 300px;
+}
 /* .ant-switch:focus {
     right: 10px;
 }

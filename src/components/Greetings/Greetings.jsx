@@ -1,6 +1,7 @@
 import { Spin } from 'antd';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import AuthContext from '../../Context/AuthContext';
 
 import './greetings.css';
 
@@ -9,7 +10,8 @@ const apiLink = `https://fosholi.com/idss_api//home/notifications?upazila_id=280
     fosholi link : 
     https://fosholi.com/idss_api//home/notifications?upazila_id=280&union_id=2918
 */
-export default function Greetings({ userName }) {
+export default function Greetings() {
+    const { userName } = useContext(AuthContext);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     // eslint-disable-next-line no-unused-vars
     const [weather, setWeather] = useState([]);
