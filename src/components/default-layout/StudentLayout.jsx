@@ -1,10 +1,9 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 /* eslint-disable react/destructuring-assignment */
 
 import {
-    BookOutlined,
     DashboardFilled,
     MessageTwoTone,
     // TeamOutlined,
@@ -14,11 +13,9 @@ import {
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Headercomp from '../../components/Header/Headercomp';
-// import '../resources/layout.css';
-
-import logo from '../../components/lms-logo.png';
-
+import '../../resources/layout.css';
+import Headercomp from '../Header/Headercomp';
+import logo from '../lms-logo.png';
 // eslint-disable-next-line no-unused-vars
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -31,12 +28,8 @@ function getItem(label, key, icon, onClick) {
     };
 }
 
-// getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-
 // eslint-disable-next-line no-unused-vars
 function IconDiv() {
-    // const src = `./../resources/lms-logo.png`;
-
     return (
         <div className="logo-container">
             <img src={logo} alt="LMS-logo" className="lgo" />
@@ -44,61 +37,58 @@ function IconDiv() {
         </div>
     );
 }
+
 const pages = [
-    'Admin Dashboard',
-    'Student',
-    'Teacher',
-    'Messages',
-    'Pending Approvals',
-    'Settings',
+    {
+        label: 'Dashboard',
+        icon: <DashboardFilled />,
+        linkto: 'dash',
+    },
+
+    {
+        label: 'Messages',
+        icon: <MessageTwoTone />,
+        linkto: 'chat',
+    },
+    {
+        label: 'Schedule',
+        icon: <ScheduleFilled />,
+        linkto: 'schedule',
+    },
+    {
+        label: 'Enroll in a course',
+        icon: <SketchSquareFilled />,
+        linkto: 'enroll',
+    },
+    {
+        label: 'Settings',
+        icon: <SettingFilled />,
+        linkto: 'settings',
+    },
 ];
-function AdminLayout(props) {
+
+function StudentLayout(props) {
     // eslint-disable-next-line no-unused-vars
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
     const selectedKey = useLocation().pathname;
     const highlight = () => {
-        if (selectedKey === '/' || selectedKey === '/admin') {
-            return ['1'];
-        }
-        if (selectedKey === '/admin-list-students') {
-            return ['2'];
-        }
-        if (selectedKey === '/admin-list-teacher') {
-            return ['3'];
-        }
-
-        if (selectedKey === '/admin-chat') {
-            return ['4'];
-        }
-        if (selectedKey === '/pending-approval') {
-            return ['5'];
-        }
-        if (selectedKey === '/admin-settings') {
-            return ['6'];
+        const findRes = pages.findIndex((v) => {
+            if (selectedKey == '/') return ['0'];
+            const modi = `/${v.linkto}`;
+            return modi == selectedKey;
+        });
+        if (findRes != -1) {
+            return [`${findRes}`];
         }
         return [null];
     };
-    const items = [
-        getItem('DashBoard', '1', <BookOutlined />, () => {
-            navigate('/');
-        }),
-        getItem('Students', '2', <DashboardFilled />, () => {
-            navigate('/admin-list-students');
-        }),
-        getItem('Teachers', '3', <SketchSquareFilled />, () => {
-            navigate('/admin-list-teacher');
-        }),
-        getItem('Messages', '4', <MessageTwoTone />, () => {
-            navigate('/admin-chat');
-        }),
-        getItem('Pending Approvals', '5', <ScheduleFilled />, () => {
-            navigate('/pending-approval');
-        }),
-        getItem('Settings', '6', <SettingFilled />, () => {
-            navigate('/admin-settings');
-        }),
-    ];
+    const MenuItems = pages.map((singleItem, idx) =>
+        getItem(singleItem.label, `${idx}`, singleItem.icon, () => {
+            navigate(`/${singleItem.linkto}`);
+        })
+    );
+    // console.log(MenuItems);
 
     return (
         <Layout
@@ -127,7 +117,7 @@ function AdminLayout(props) {
                     defaultSelectedKeys={['1']}
                     selectedKeys={highlight()}
                     mode="inline"
-                    items={items}
+                    items={MenuItems}
                 />
             </Sider>
             <Layout className="site-layout">
@@ -138,22 +128,13 @@ function AdminLayout(props) {
                         // backgroundColor: '#122033',
                     }}
                 >
-                    {console.log()}
-                    <Headercomp pageName={pages[parseInt(highlight().shift(), 10)]} />
+                    <Headercomp pageName={pages[highlight().pop()]?.label || ''} />
                 </Header>
                 <Content
                     style={{
                         margin: '0 16px',
                     }}
                 >
-                    {/* <Breadcrumb
-                        style={{
-                            margin: '16px 0',
-                        }}
-                    >
-                        <Breadcrumb.Item>User</Breadcrumb.Item>
-                        <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                    </Breadcrumb> */}
                     <div
                         className="site-layout-background"
                         style={{
@@ -164,17 +145,9 @@ function AdminLayout(props) {
                         {props.children}
                     </div>
                 </Content>
-
-                {/* <Footer
-                    style={{
-                        textAlign: 'center',
-                    }}
-                >
-                    Ant Design ©2018 Created by Ant UED
-                </Footer> */}
             </Layout>
         </Layout>
     );
 }
 
-export default AdminLayout;
+export default StudentLayout;

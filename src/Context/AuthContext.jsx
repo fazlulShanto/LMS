@@ -5,9 +5,10 @@ const AuthContext = createContext({});
 
 export function AuthProvider({ children }) {
     const [userUuid, setUserUuid] = useState('000000');
-    const [userName, setUserName] = useState('User');
-    const [userRole, setUserRole] = useState('No ROle');
+    const [userName, setUserName] = useState('Default');
+    const [userRole, setUserRole] = useState(JSON.stringify({}));
     const [loggedIn, setLoggedIn] = useState(false);
+    const [accessToken, setAccessToken] = useState(false);
 
     return (
         <AuthContext.Provider
@@ -20,6 +21,8 @@ export function AuthProvider({ children }) {
                 setUserRole,
                 loggedIn,
                 setLoggedIn,
+                accessToken,
+                setAccessToken,
             }}
         >
             {children}

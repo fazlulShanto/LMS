@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/jsx-props-no-spreading */
@@ -8,16 +9,42 @@ import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Col, Form, Input, message, Row, Switch } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
 import './signup.css';
 
+const getLocalStorageInfo = () => {
+    const logged = localStorage.getItem('loggedIn');
+    const userId = localStorage.getItem('user_uuid');
+    const token = localStorage.getItem('accessToken');
+    const roles = localStorage.getItem('roles');
+
+    return {
+        logged,
+        userId,
+        token,
+        roles,
+    };
+};
 function SignupForm() {
+    const [loading, setLoading] = useState(false);
     const navi = useNavigate();
-    const [otpButton, setOtpButton] = useState(false);
+    const [otpButton, setOtpButton] = useState(true);
     const [submitBtn, setSubmitBtn] = useState(true);
     const [form] = useForm();
+    const { setUserUuid, setUserRole, setLoggedIn, setAccessToken } = useAuth();
+    useEffect(() => {
+        const oldData = getLocalStorageInfo();
+        if (oldData.logged && oldData.userId) {
+            setUserUuid(oldData.userId);
+            setUserRole(oldData.roles);
+            setLoggedIn(true);
+            setAccessToken(oldData.token);
+            navi('/', { replace: true });
+        }
+    }, []);
     const onFinish = (values) => {
         // console.log('Received values of form: ', values);
         const { isTeacher } = values;
@@ -51,6 +78,7 @@ function SignupForm() {
             });
     };
     const sendOtp = () => {
+        setLoading(true);
         const tempMail = form.getFieldValue('email');
         const mailEr = form.getFieldError('email');
         if (!mailEr.length) {
@@ -71,11 +99,15 @@ function SignupForm() {
             axios(config)
                 .then((response) => {
                     message.success(`OTP sent. Check Your Email!`);
+                    setLoading(false);
                     setSubmitBtn(false);
                 })
                 .catch((error) => {
+                    console.log();
                     message.error(`Failed To sent OTP.Enter a valid Email.`);
-                    console.log(error);
+
+                    setLoading(false);
+                    console.log(form.getFieldValue('email'));
                 });
         }
     };
@@ -154,6 +186,7 @@ function SignupForm() {
                             ({ getFieldValue }) => ({
                                 validator(_, value) {
                                     if (!value || getFieldValue('password') === value) {
+                                        setOtpButton(false);
                                         return Promise.resolve();
                                     }
 
@@ -188,7 +221,7 @@ function SignupForm() {
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
-                                <Button onClick={sendOtp} disabled={otpButton}>
+                                <Button onClick={sendOtp} disabled={otpButton} loading={loading}>
                                     Get OTP
                                 </Button>
                             </Col>

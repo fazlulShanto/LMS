@@ -4,9 +4,11 @@ import { Button, Col, DatePicker, Form, Input, message, Row } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import useAuth from '../../Hooks/useAuth';
 
-function ProfileForm({ userId = 3 }) {
-    const apiUrl = `http://localhost:3003/api/user/get/${userId}`;
+function ProfileForm() {
+    const { userUuid } = useAuth();
+    const apiUrl = `http://localhost:3003/api/user/get/${userUuid}`;
     // const
     const proArray = [];
     const [form] = Form.useForm();
@@ -18,7 +20,7 @@ function ProfileForm({ userId = 3 }) {
         const config = {
             method: 'post',
 
-            url: `${postUrl}/set/${userId}`,
+            url: `${postUrl}/set/${userUuid}`,
             headers: { ...values },
         };
 
@@ -80,7 +82,7 @@ function ProfileForm({ userId = 3 }) {
                     setAfterLoad(true);
                     // console.log(`${oldData.id}here`);
                 },
-                [userId]
+                [userUuid]
             )
             .catch((er) => console.log(er));
         // eslint-disable-next-line react-hooks/exhaustive-deps

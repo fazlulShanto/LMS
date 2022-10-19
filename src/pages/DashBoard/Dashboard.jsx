@@ -1,38 +1,23 @@
-import { Col, Row } from 'antd';
+/* eslint-disable no-unused-vars */
 import '../../app.css';
-import Coursecard from '../../components/course-card/Coursecard';
-import DefaultLayout from '../../components/DefaultLayout';
-import Greetings from '../../components/Greetings/Greetings';
-import Todo from '../../components/todo/Todo';
+import AdminDashboard from '../../components/Dashboard/AdminDashboard';
+import StudentDashboard from '../../components/Dashboard/StudentDashboard';
+import TeacherDashboard from '../../components/Dashboard/TeacherDashboard';
+
+import useAuth from '../../Hooks/useAuth';
 
 function Dashboard() {
-    return (
-        <DefaultLayout>
-            <Row gutter={[0, 8]}>
-                <Col span={12} style={{ marginBottom: '8px' }}>
-                    <Greetings userName="User" />
-                    <Coursecard days={[1, 2, 3]} />
-                </Col>
-                <Col span={12}>
-                    <Todo userId={3} />
-                </Col>
-            </Row>
-            <Row gutter={[0, 8]}>
-                <Col span={12}>
-                    <Coursecard days={[1, 2, 3]} />
-                </Col>
-                <Col span={12}>
-                    <Coursecard days={[1, 2, 3]} />
-                </Col>
-                <Col span={12}>
-                    <Coursecard days={[1, 2, 3]} />
-                </Col>
-                <Col span={12}>
-                    <Coursecard days={[1, 2, 3]} />
-                </Col>
-            </Row>
-        </DefaultLayout>
-    );
+    const { userUuid, userRole } = useAuth();
+    let objRole = JSON.parse(userRole);
+    objRole = Object.keys(objRole);
+
+    if (objRole.includes('Teacher')) {
+        return <TeacherDashboard />;
+    }
+    if (objRole.includes('Student')) {
+        return <StudentDashboard />;
+    }
+    return <AdminDashboard />;
 }
 
 export default Dashboard;

@@ -2,11 +2,13 @@
 import { Button, Col, Form, Input, message, Row, Space } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
+import useAuth from '../../Hooks/useAuth';
 
 import './createcourse.css';
 // import Editor from '../Editor/Editor';
 
 function CreateCourse() {
+    const { userName, userUuid } = useAuth();
     const [courseInfo, setCourseInfo] = useState('');
     const [lesson, setLesson] = useState([1, 2, 3]);
     const [userId, setUserId] = useState('12');
@@ -15,23 +17,28 @@ function CreateCourse() {
         setCourseInfo(av);
     };
     const onFinish = (values) => {
-        console.log(values);
-        console.log(lesson);
-        console.log(courseInfo);
+        // console.log(values);
+        // console.log(lesson);
+        // console.log(courseInfo);
+        const formData = new FormData();
+        // console.log(`here : ${fileList[0]}`);
         const courseUid = Math.random().toString(16).slice(2);
+
+        formData.append('name', values.course_name);
+        formData.append('id', courseUid);
+        formData.append('code', values.course_code);
+        formData.append('desc', values.syllabus);
+        formData.append('othersinfo', values.marks_info);
+        formData.append('instructor', userName);
+        formData.append('creatorid', userUuid);
+
         const config = {
             method: 'post',
             url: 'http://localhost:3003/api/course',
             headers: {
                 'Access-Control-Allow-Origin': '*',
-                id: courseUid,
-                name: values.course_name,
-                code: values.course_code,
-                desc: values.syllabus,
-                othersinfo: values.marks_info,
-                instructor: 'Teacher Name',
-                creatorid: userId,
             },
+            data: formData,
         };
 
         axios(config)

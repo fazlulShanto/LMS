@@ -1,14 +1,15 @@
-import { Button } from 'antd';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import DefaultLayout from '../../components/DefaultLayout';
+import StudentSettings from '../../components/settings-comp/StudentSettings';
+import TeacherSettings from '../../components/settings-comp/TeacherSettings';
+import useAuth from '../../Hooks/useAuth';
 
 export default function SettingsPage() {
-    return (
-        <DefaultLayout>
-            <Button>
-                <Link to="/profile">Edit Profile</Link>
-            </Button>
-        </DefaultLayout>
-    );
+    const { userRole } = useAuth();
+    const roleObj = Object.keys(JSON.parse(userRole));
+    if (roleObj.includes('Teacher')) {
+        return <TeacherSettings />;
+    }
+    if (roleObj.includes('Student')) {
+        return <StudentSettings />;
+    }
 }

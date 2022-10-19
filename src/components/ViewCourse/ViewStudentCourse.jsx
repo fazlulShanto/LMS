@@ -2,6 +2,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import StudentLayout from '../default-layout/StudentLayout';
 import Lesson from '../lesson/Lesson';
 
 function ViewStudentCourse() {
@@ -46,25 +47,27 @@ function ViewStudentCourse() {
     }, [loc]);
 
     return (
-        <div className="course-page-container">
-            <div className="course-info-div">
-                <h1>
-                    {courseCode} : {courseName}
-                </h1>
-                <h3>{courseTeacher}</h3>
+        <StudentLayout>
+            <div className="course-page-container">
+                <div className="course-info-div">
+                    <h1>
+                        {courseCode} : {courseName}
+                    </h1>
+                    <h3>{courseTeacher}</h3>
+                </div>
+                <div className="course-syllabus-div">
+                    <h2>Syllabus & Recommended Books</h2>
+                    <p>{courseDesc}</p>
+                </div>
+                <div className="course-marks-div">
+                    <h2>Marks distribution & Others Info</h2>
+                    <p> {otherInfo} </p>
+                </div>
+                <div className="course-lesson-div">
+                    <Lesson delta={courseLessons} />
+                </div>
             </div>
-            <div className="course-syllabus-div">
-                <h2>Syllabus & Recommended Books</h2>
-                <p>{courseDesc}</p>
-            </div>
-            <div className="course-marks-div">
-                <h2>Marks distribution & Others Info</h2>
-                <p> {otherInfo} </p>
-            </div>
-            <div className="course-lesson-div">
-                <Lesson delta={courseLessons} />
-            </div>
-        </div>
+        </StudentLayout>
     );
 }
 

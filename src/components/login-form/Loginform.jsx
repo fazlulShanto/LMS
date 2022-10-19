@@ -1,17 +1,49 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, message } from 'antd';
 import axios from 'axios';
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 
-import { Link, useNavigate } from 'react-router-dom';
-import AuthContext from '../../Context/AuthContext';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
 import './loginform.css';
 
+const getLocalStorageInfo = () => {
+    const logged = localStorage.getItem('loggedIn');
+    const userId = localStorage.getItem('user_uuid');
+    const token = localStorage.getItem('accessToken');
+    const roles = localStorage.getItem('roles');
+    const name = localStorage.getItem('userName');
+
+    return {
+        logged,
+        userId,
+        token,
+        roles,
+        name,
+    };
+};
 function Loginform() {
     const navi = useNavigate();
-    const { setUserUuid, setUserRole, setLoggedIn } = useContext(AuthContext);
+    const loc = useLocation();
+    const fromLoc = loc.state?.from?.pathname || '/';
+    const { setUserUuid, setUserRole, setLoggedIn, setAccessToken, setUserName } = useAuth();
+    // console.log('hello world');
+    useEffect(() => {
+        const oldData = getLocalStorageInfo();
+        if (oldData.logged && oldData.userId) {
+            setUserUuid(oldData.userId);
+            setUserRole(oldData.roles);
+            setLoggedIn(true);
+            setAccessToken(oldData.token);
+            setUserName(oldData.name);
+            navi(fromLoc, { replace: true });
+        }
+    }, []);
+    // const { setUserUuid, setUserRole, setLoggedIn } = useContext(AuthContext);
     const onFinish = (values) => {
         // console.log('Success:', values);
         const data = JSON.stringify({
@@ -35,22 +67,29 @@ function Loginform() {
                 if (response.data.message === 'ok') {
                     // console.log(response.data);
                     // console.log(JSON.stringify(response.data));
-                    const { user_uuid, accessToken, roles } = response.data;
+                    const { user_uuid, accessToken, roles, userName } = response.data;
                     setUserUuid(user_uuid);
                     setUserRole(JSON.stringify(roles));
                     setLoggedIn(true);
+                    setAccessToken(accessToken);
+                    setUserName(userName);
                     localStorage.setItem('user_uuid', user_uuid);
                     localStorage.setItem('accessToken', accessToken);
                     localStorage.setItem('loggedIn', true);
+                    localStorage.setItem('roles', JSON.stringify(roles));
+                    localStorage.setItem('userName', userName);
                     // message.success('User Logged in');
-                    navi('/');
+                    // navi('/', { replace: true });
+                    navi(fromLoc, { replace: true });
                 }
             })
             .catch((error) => {
                 console.log(error);
                 localStorage.removeItem('user_uuid');
                 localStorage.removeItem('accessToken');
+                // console.log(error.response.data.message);
                 const unApproved = error.response.data.message.includes('Approved');
+                // console.log(unApproved);
                 if (unApproved) {
                     navi('/wait');
                 } else {

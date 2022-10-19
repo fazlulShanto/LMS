@@ -5,17 +5,19 @@ import './app.css';
 import AddLesson from './components/create-course/AddLesson';
 import CreateCourse from './components/create-course/CreateCourse';
 import NewLesson from './components/create-course/NewLesson';
+import EnrollCourse from './components/enroll/EnrollCourse';
 import Loginform from './components/login-form/Loginform';
 import Quizz from './components/quizz/Quizz';
 import SingleQuizzQuestion from './components/quizz/SingleQuizzQuestion';
 import ViewQuiz from './components/quizz/ViewQuiz';
+import RequireAuth from './components/req-auth/RequireAuth';
 import UserNotApproved from './components/signup-form/UserNotApproved';
 import Course from './components/Single-Course/Course';
+import UnAuthrorized from './components/unauthorized/UnAuthrorized';
 import User from './components/users/User';
 import AuthContext from './Context/AuthContext';
 import AdminChat from './pages/admin/AdminChat';
 
-import AdminLayout from './pages/admin/AdminLayout';
 import AdminListStudents from './pages/admin/AdminListStudents';
 import AdminListTeacher from './pages/admin/AdminListTeacher';
 import AdminSettings from './pages/admin/AdminSettings';
@@ -35,7 +37,7 @@ function temp() {
 function App() {
     const { loggedIn } = useContext(AuthContext);
 
-    const paged = () => (loggedIn ? <Dashboard /> : <Loginform />);
+    // const paged = () => (loggedIn ? <Dashboard /> : <Loginform />);
     // const pageNo = 1;
     // let renderPage = <Dashboard />;
     // if (pageNo === 2) {
@@ -44,35 +46,60 @@ function App() {
     return (
         <div className="app">
             <Routes>
-                <Route path="/" element={paged()} />
-                <Route path="/dash" element={<Dashboard />} />
-                <Route path="/settings" element={<SettingsPage />} />
-                <Route path="/chat" element={<MessengerPage />} />
-                <Route path="/schedule" element={<SchedulePage />} />
-                <Route path="/mycourses" element={<MyCourses />} />
-                <Route path="/wait" element={<UserNotApproved />} />
-                {/* {Admin Routes} */}
-                <Route path="/admin" element={<AdminLayout />} />
-                <Route path="/admin-list-students" element={<AdminListStudents />} />
-                <Route path="/admin-list-teacher" element={<AdminListTeacher />} />
-                <Route path="/pending-approval" element={<PendingApproval />} />
-                <Route path="/admin-settings" element={<AdminSettings />} />
-                <Route path="/admin-chat" element={<AdminChat />} />
+                {/* Public Route without having auth */}
+                <Route>
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/login" element={<Loginform />} />
+                    <Route path="/forgotpass" element={<ForgotPassword />} />
+                    <Route path="/unauthorized" element={<UnAuthrorized />} />
+                    <Route path="/wait" element={<UserNotApproved />} />
+                </Route>
+                {/* <Route path="/" element={paged()} /> */}
 
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/login" element={<Loginform />} />
-                <Route path="/forgotpass" element={<ForgotPassword />} />
-                <Route path="user/:id" element={<User />} />
-                <Route path="course/:id" element={<Course />} />
-                <Route path="course" element={<Course />} />
-                <Route path="create" element={<CreateCourse />} />
-                <Route path="add" element={<AddLesson />} />
-                <Route path="new" element={<NewLesson />} />
-                <Route path="quizz" element={<Quizz />} />
-                <Route path="quiz2" element={<SingleQuizzQuestion />} />
-                <Route path="vq" element={<ViewQuiz />} />
-                <Route path="vq/:id" element={<ViewQuiz />} />
+                {/* <Route element={<RequireAuth allowedRoles={['Admin']} />}> */}
+                <Route element={<RequireAuth allowedRoles={['Admin']} />}>
+                    {/* {Admin only Routes} */}
+                    {/* <Route path="/" element={<AdminListStudents />} /> */}
+                    {/* <Route path="/admin" element={<AdminLayout />} /> */}
+                    <Route path="/admin-list-students" element={<AdminListStudents />} />
+                    <Route path="/admin-list-teacher" element={<AdminListTeacher />} />
+                    <Route path="/pending-approval" element={<PendingApproval />} />
+                    <Route path="/admin-settings" element={<AdminSettings />} />
+                    <Route path="/admin-chat" element={<AdminChat />} />
+                </Route>
+                {/* Teacher Only Routes */}
+                <Route element={<RequireAuth allowedRoles={['Teacher']} />}>
+                    {/* <Route path="/dash" element={<Dashboard />} /> */}
+                    {/* <Route path="/settings" element={<SettingsPage />} /> */}
+                </Route>
+                {/* Student Only Route */}
+                <Route element={<RequireAuth allowedRoles={['Student']} />}>
+                    {/* <Route path="/" element={<Dashboard />} /> */}
+                    {/* <Route path="/dash" element={<Dashboard />} /> */}
+                    <Route path="/enroll" element={<EnrollCourse />} />
+                    {/* <Route path="/settings" element={<SettingsPage />} /> */}
+                </Route>
+                {/* Teacher | Student | Admin Route */}
+                <Route element={<RequireAuth allowedRoles={['Teacher', 'Student', 'Admin']} />}>
+                    <Route path="/settings" element={<SettingsPage />} />
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/dash" element={<Dashboard />} />
+                    <Route path="/chat" element={<MessengerPage />} />
+                    <Route path="/schedule" element={<SchedulePage />} />
+                    <Route path="/mycourses" element={<MyCourses />} />
+
+                    <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="user/:id" element={<User />} />
+                    <Route path="course/:id" element={<Course />} />
+                    <Route path="course" element={<Course />} />
+                    <Route path="create" element={<CreateCourse />} />
+                    <Route path="add" element={<AddLesson />} />
+                    <Route path="new" element={<NewLesson />} />
+                    <Route path="quizz" element={<Quizz />} />
+                    <Route path="quiz2" element={<SingleQuizzQuestion />} />
+                    <Route path="vq" element={<ViewQuiz />} />
+                    <Route path="vq/:id" element={<ViewQuiz />} />
+                </Route>
             </Routes>
         </div>
     );

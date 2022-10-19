@@ -7,28 +7,41 @@ import './dropDown.css';
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import useAuth from '../../Hooks/useAuth';
 
 const { Option } = Select;
 
 function CourseDropDown({ detectSelect }) {
     const [courseList, setCourseList] = useState('[]');
-
+    const { userUuid } = useAuth();
     useEffect(() => {
-        const apiUrl = 'http://localhost:3003/api/user/get/12';
-        axios
-            .get(apiUrl)
-            .then((res) => {
-                // console.log(res.data.courses);
-                const rawCourses = res.data.courses || [];
-                const courses = rawCourses?.map((v, i) => ({
-                    label: v.title,
-                    value: v.uid,
+        const data = JSON.stringify({
+            id: userUuid,
+        });
+
+        const config = {
+            method: 'get',
+            url: 'http://localhost:3003/api/course/teacher-course',
+            headers: {
+                'Content-Type': 'application/json',
+                id: userUuid,
+            },
+        };
+        // console.log(config.url);
+        axios(config)
+            .then((response) => {
+                // console.log(JSON.stringify(response.data.courses));
+                const { courses } = response.data;
+                let moid = courses.map((v) => ({
+                    value: v.id,
+                    label: v.name,
                 }));
-                const kd = JSON.stringify(courses);
-                setCourseList(kd);
+                moid = JSON.stringify(moid);
+                setCourseList(moid);
+                // console.log(moid);
             })
-            .catch((er) => {
-                console.log(er);
+            .catch((error) => {
+                console.log(error);
             });
     }, [courseList]);
 

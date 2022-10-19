@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 /* eslint-disable react/destructuring-assignment */
 
@@ -11,9 +13,9 @@ import {
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../resources/layout.css';
-import Headercomp from './Header/Headercomp';
-import logo from './lms-logo.png';
+import '../../resources/layout.css';
+import Headercomp from '../Header/Headercomp';
+import logo from '../lms-logo.png';
 // eslint-disable-next-line no-unused-vars
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -26,12 +28,8 @@ function getItem(label, key, icon, onClick) {
     };
 }
 
-// getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-
 // eslint-disable-next-line no-unused-vars
 function IconDiv() {
-    // const src = `./../resources/lms-logo.png`;
-
     return (
         <div className="logo-container">
             <img src={logo} alt="LMS-logo" className="lgo" />
@@ -39,50 +37,62 @@ function IconDiv() {
         </div>
     );
 }
-const pages = ['Dashboard', 'My Courses', 'Messages', 'Schedule', 'Settings'];
+
+const pages = [
+    {
+        label: 'Dashboard',
+        icon: <DashboardFilled />,
+        linkto: 'dash',
+    },
+    // {
+    //     label: 'View Courses',
+    //     icon: <SketchSquareFilled />,
+    //     linkto: 'teacher-course-list',
+    // },
+    {
+        label: 'Manage Courses',
+        icon: <SketchSquareFilled />,
+        linkto: 'mycourses',
+    },
+    {
+        label: 'Messages',
+        icon: <MessageTwoTone />,
+        linkto: 'chat',
+    },
+    {
+        label: 'Schedule',
+        icon: <ScheduleFilled />,
+        linkto: 'schedule',
+    },
+    {
+        label: 'Settings',
+        icon: <SettingFilled />,
+        linkto: 'settings',
+    },
+];
+
 function DefaultLayout(props) {
     // eslint-disable-next-line no-unused-vars
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
     const selectedKey = useLocation().pathname;
     const highlight = () => {
-        if (selectedKey === '/' || selectedKey === '/dash') {
-            return ['1'];
-        }
-        if (selectedKey === '/mycourses') {
-            return ['2'];
-        }
-        if (selectedKey === '/chat') {
-            return ['3'];
-        }
-        if (selectedKey === '/schedule') {
-            return ['4'];
-        }
-        if (selectedKey === '/settings') {
-            return ['5'];
-        }
-        if (selectedKey === '/profile') {
-            return ['5'];
+        const findRes = pages.findIndex((v) => {
+            if (selectedKey == '/') return ['0'];
+            const modi = `/${v.linkto}`;
+            return modi == selectedKey;
+        });
+        if (findRes != -1) {
+            return [`${findRes}`];
         }
         return [null];
     };
-    const items = [
-        getItem('Dashboard', '1', <DashboardFilled />, () => {
-            navigate('/dash');
-        }),
-        getItem('My Courses', '2', <SketchSquareFilled />, () => {
-            navigate('/mycourses');
-        }),
-        getItem('Messages', '3', <MessageTwoTone />, () => {
-            navigate('/chat');
-        }),
-        getItem('Schedule', '4', <ScheduleFilled />, () => {
-            navigate('/schedule');
-        }),
-        getItem('Settings', '5', <SettingFilled />, () => {
-            navigate('/settings');
-        }),
-    ];
+    const MenuItems = pages.map((singleItem, idx) =>
+        getItem(singleItem.label, `${idx}`, singleItem.icon, () => {
+            navigate(`/${singleItem.linkto}`);
+        })
+    );
+    // console.log(MenuItems);
 
     return (
         <Layout
@@ -111,7 +121,7 @@ function DefaultLayout(props) {
                     defaultSelectedKeys={['1']}
                     selectedKeys={highlight()}
                     mode="inline"
-                    items={items}
+                    items={MenuItems}
                 />
             </Sider>
             <Layout className="site-layout">
@@ -122,22 +132,13 @@ function DefaultLayout(props) {
                         // backgroundColor: '#122033',
                     }}
                 >
-                    {console.log()}
-                    <Headercomp pageName={pages[parseInt(highlight().shift() - 1, 10)]} />
+                    <Headercomp pageName={pages[highlight().pop()]?.label || ' '} />
                 </Header>
                 <Content
                     style={{
                         margin: '0 16px',
                     }}
                 >
-                    {/* <Breadcrumb
-                        style={{
-                            margin: '16px 0',
-                        }}
-                    >
-                        <Breadcrumb.Item>User</Breadcrumb.Item>
-                        <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                    </Breadcrumb> */}
                     <div
                         className="site-layout-background"
                         style={{
@@ -148,14 +149,6 @@ function DefaultLayout(props) {
                         {props.children}
                     </div>
                 </Content>
-
-                {/* <Footer
-                    style={{
-                        textAlign: 'center',
-                    }}
-                >
-                    Ant Design ©2018 Created by Ant UED
-                </Footer> */}
             </Layout>
         </Layout>
     );

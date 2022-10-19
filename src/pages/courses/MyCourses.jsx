@@ -1,6 +1,6 @@
 import React from 'react';
 import ManageCourses from '../../components/course-management/ManageCourses';
-import DefaultLayout from '../../components/DefaultLayout';
+import DefaultLayout from '../../components/default-layout/DefaultLayout';
 
 function MyCourses() {
     return (
