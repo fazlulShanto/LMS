@@ -13,13 +13,13 @@ import Todo from '../todo/Todo';
 
 function StudentDashboard() {
     const { userUuid } = useAuth();
-    const [noCard, setNoCard] = useState(true);
-    const [courseList, setCourseList] = useState(null);
+    const [firstCourse, setFirstCourse] = useState(null);
+    const [courseList, setCourseList] = useState([]);
 
     useEffect(() => {
         const config = {
             method: 'get',
-            url: 'http://localhost:3003/api/user/all-courses',
+            url: 'http://localhost:3003/api/course/student-course',
             headers: {
                 'Content-Type': 'application/json',
                 id: userUuid,
@@ -28,12 +28,12 @@ function StudentDashboard() {
 
         axios(config)
             .then((response) => {
-                // console.log(JSON.stringify(response.data));
-                if (response.data.length) {
-                    setCourseList(response.data);
-                    setNoCard(false);
-                } else {
-                    setNoCard(true);
+                const { courses } = response.data;
+                if (courses.length > 1) {
+                    setFirstCourse(courses.shift());
+                    setCourseList(courses);
+                } else if (courses.length) {
+                    setFirstCourse(courses.shift());
                 }
             })
             .catch((error) => {
@@ -44,27 +44,26 @@ function StudentDashboard() {
         <StudentLayout>
             <Row gutter={[0, 8]}>
                 <Col span={12} style={{ marginBottom: '8px' }}>
-                    <Greetings />
-                    {noCard ? <NoCourseCard type="Student" /> : <Coursecard days={[1, 2, 3]} />}
+                    <Greetings userName="User" />
+                    {firstCourse ? (
+                        <Coursecard data={firstCourse} />
+                    ) : (
+                        <NoCourseCard type="Student" />
+                    )}
                 </Col>
                 <Col span={12}>
                     <Todo userId={userUuid} />
                 </Col>
             </Row>
-            <Row gutter={[0, 8]}>
-                {/* <Col span={12}>
-                    <Coursecard days={[1, 2, 3]} />
-                </Col>
-                <Col span={12}>
-                    <Coursecard days={[1, 2, 3]} />
-                </Col>
-                <Col span={12}>
-                    <Coursecard days={[1, 2, 3]} />
-                </Col>
-                <Col span={12}>
-                    <Coursecard days={[1, 2, 3]} />
-                </Col> */}
-            </Row>
+            {courseList.length && (
+                <Row gutter={[0, 8]}>
+                    {courseList.map((sc) => (
+                        <Col span={12} key={Math.random()}>
+                            <Coursecard data={sc} />
+                        </Col>
+                    ))}
+                </Row>
+            )}
         </StudentLayout>
     );
 }

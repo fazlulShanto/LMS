@@ -1,0 +1,9 @@
+.tab-people-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.course-people-list-item {
+    min-width: max(300px, 50vw);
+}

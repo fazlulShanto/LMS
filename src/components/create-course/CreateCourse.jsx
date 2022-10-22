@@ -1,29 +1,30 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
-import { Button, Col, Form, Input, message, Row, Space } from 'antd';
+import { Button, Col, Form, Input, message, Row, Select, Space } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
 import useAuth from '../../Hooks/useAuth';
 
 import './createcourse.css';
-// import Editor from '../Editor/Editor';
 
+const { Option } = Select;
+// import Editor from '../Editor/Editor';
+const weekDays = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed'];
 function CreateCourse() {
     const { userName, userUuid } = useAuth();
     const [courseInfo, setCourseInfo] = useState('');
-    const [lesson, setLesson] = useState([1, 2, 3]);
     const [userId, setUserId] = useState('12');
 
     const handleChange = (v, av) => {
         setCourseInfo(av);
     };
+    const handleSelect = (value) => {
+        console.log(`selected ${value}`);
+    };
     const onFinish = (values) => {
-        // console.log(values);
-        // console.log(lesson);
-        // console.log(courseInfo);
         const formData = new FormData();
         // console.log(`here : ${fileList[0]}`);
         const courseUid = Math.random().toString(16).slice(2);
-
         formData.append('name', values.course_name);
         formData.append('id', courseUid);
         formData.append('code', values.course_code);
@@ -31,6 +32,7 @@ function CreateCourse() {
         formData.append('othersinfo', values.marks_info);
         formData.append('instructor', userName);
         formData.append('creatorid', userUuid);
+        formData.append('activeday', values.activeday);
 
         const config = {
             method: 'post',
@@ -57,7 +59,7 @@ function CreateCourse() {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-
+    const dateFormat = 'MM/DD';
     return (
         <div className="create-Course-container">
             <Form
@@ -125,6 +127,34 @@ function CreateCourse() {
                             ]}
                         >
                             <Input.TextArea rows={4} placeholder="please enter description" />
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row gutter={16}>
+                    <Col span={24}>
+                        <Form.Item
+                            name="activeday"
+                            label="Class Schedule : "
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please Select Active days',
+                                },
+                            ]}
+                        >
+                            <Select
+                                mode="multiple"
+                                allowClear
+                                style={{
+                                    width: '100%',
+                                }}
+                                placeholder="Please select"
+                                onChange={handleSelect}
+                            >
+                                {weekDays.map((v, i3) => (
+                                    <Option key={i3 + 1}>{v}</Option>
+                                ))}
+                            </Select>
                         </Form.Item>
                     </Col>
                 </Row>

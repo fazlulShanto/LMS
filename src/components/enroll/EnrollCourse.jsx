@@ -1,13 +1,52 @@
 /* eslint-disable no-unused-vars */
 import { CodeOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Modal } from 'antd';
+import axios from 'axios';
 import { useState } from 'react';
+import useAuth from '../../Hooks/useAuth';
 import StudentLayout from '../default-layout/StudentLayout';
 
 function EnrollCourse() {
+    const { userUuid } = useAuth();
     const [loading, setLoading] = useState(false);
+    const [successTitle, setSucTitle] = useState('Success');
+
+    const successModal = () => {
+        Modal.success({
+            title: successTitle,
+            content: 'Wait till the course teacher approve your request.',
+        });
+    };
+    const errorModal = (msg) => {
+        Modal.error({
+            title: 'Failed',
+            content: msg || 'There is no course associated with this code!',
+        });
+    };
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
+        const data = new FormData();
+        data.append('cid', values.classCode);
+        data.append('student_id', userUuid);
+
+        const config = {
+            method: 'post',
+            url: 'http://localhost:3003/api/course/student/join-request',
+            headers: {},
+            data,
+        };
+
+        axios(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+                setLoading(false);
+                successModal();
+            })
+            .catch((er) => {
+                const { error } = er.response.data;
+                setLoading(false);
+                errorModal(error);
+            });
         setLoading(true);
     };
 

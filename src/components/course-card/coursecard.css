@@ -1,14 +1,14 @@
 .course-card-container {
     padding: 8px 16px;
+    position: relative;
     background-color: #dfdfdf;
-    /* background-color: #e71c1c; */
-    /* height: fit-content; */
-    width: 480px;
-    /* height: 300px; */
+    width: 500px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     height: 190px;
+    overflow-y: auto;
+    overflow-x: auto;
 }
 
 .course-card-container h2 {
@@ -20,4 +20,25 @@
     /* background-color: antiquewhite; */
     display: flex;
     flex-direction: column;
+}
+
+.stat-p {
+    margin: 0;
+    font-weight: 600;
+    /* line-height: normal; */
+}
+.stat-p:first-of-type {
+    margin: 0;
+    margin-top: 3px;
+}
+.hr-course-card {
+    border-top: 1px solid #001529;
+    width: 450px;
+    margin: 0;
+    margin-top: 4px;
+}
+.course-card-button {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
 }

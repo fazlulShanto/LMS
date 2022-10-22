@@ -11,7 +11,8 @@ import {
     ScheduleFilled, SettingFilled, SketchSquareFilled
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../../resources/layout.css';
 import Headercomp from '../Header/Headercomp';
@@ -73,6 +74,7 @@ const pages = [
 
 function DefaultLayout(props) {
     // eslint-disable-next-line no-unused-vars
+    const hdref = useRef(null);
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
     const selectedKey = useLocation().pathname;
@@ -83,7 +85,10 @@ function DefaultLayout(props) {
             return modi == selectedKey;
         });
         if (findRes != -1) {
-            return [`${findRes}`];
+            return pages[`${findRes}`];
+        }
+        if (selectedKey.includes('course/')) {
+            return { label: `Class Code: ${selectedKey.split('/').pop()}` };
         }
         return [null];
     };
@@ -132,7 +137,8 @@ function DefaultLayout(props) {
                         // backgroundColor: '#122033',
                     }}
                 >
-                    <Headercomp pageName={pages[highlight().pop()]?.label || ' '} />
+                    {console.log(highlight())}
+                    <Headercomp pageName={highlight()?.label || ' '} />
                 </Header>
                 <Content
                     style={{
