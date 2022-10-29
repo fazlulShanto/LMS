@@ -4,6 +4,7 @@ import React from 'react';
 import CreateCourse from '../create-course/CreateCourse';
 import EditCourse from '../create-course/EditCourse';
 import NewLesson from '../create-course/NewLesson';
+import SingleQuizzQuestion from '../quizz/SingleQuizzQuestion';
 
 function ManageCourses() {
     const tabItems = [
@@ -15,7 +16,7 @@ function ManageCourses() {
         {
             label: 'Add Task',
             key: '2',
-            children: 'Add Task content',
+            children: <SingleQuizzQuestion />,
             disabled: false,
         },
         {

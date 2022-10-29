@@ -1,0 +1,24 @@
+.mcq-st-ed-time {
+    display: flex;
+    font-weight: 600;
+    justify-content: start;
+    gap: 48px;
+}
+.mcq-status {
+    /* color: rgb(66, 76, 211); */
+    font-weight: 600;
+    /* background-color: #001529; */
+}
+.quiz-info-card {
+    background-color: #863a95;
+    padding: 8px 16px;
+    color: white;
+    border-radius: 6px;
+}
+.quiz-submit-div {
+    margin-top: 8px;
+    border: 1px solid #863a95;
+    border-radius: 8px;
+    padding: 8px 16px;
+    background-color: #f0f2f5;
+}

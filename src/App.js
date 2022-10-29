@@ -7,8 +7,8 @@ import CreateCourse from './components/create-course/CreateCourse';
 import NewLesson from './components/create-course/NewLesson';
 import EnrollCourse from './components/enroll/EnrollCourse';
 import Loginform from './components/login-form/Loginform';
-import Quizz from './components/quizz/Quizz';
 import SingleQuizzQuestion from './components/quizz/SingleQuizzQuestion';
+import TeacherViewQuiz from './components/quizz/TeacherViewQuiz';
 import ViewQuiz from './components/quizz/ViewQuiz';
 import RequireAuth from './components/req-auth/RequireAuth';
 import UserNotApproved from './components/signup-form/UserNotApproved';
@@ -95,10 +95,9 @@ function App() {
                     <Route path="create" element={<CreateCourse />} />
                     <Route path="add" element={<AddLesson />} />
                     <Route path="new" element={<NewLesson />} />
-                    <Route path="quizz" element={<Quizz />} />
-                    <Route path="quiz2" element={<SingleQuizzQuestion />} />
-                    <Route path="vq" element={<ViewQuiz />} />
-                    <Route path="vq/:id" element={<ViewQuiz />} />
+                    <Route path="quiz" element={<SingleQuizzQuestion />} />
+                    <Route path="vqt/:id" element={<TeacherViewQuiz />} />
+                    <Route path="view-quiz/:id" element={<ViewQuiz />} />
                 </Route>
             </Routes>
         </div>

@@ -3,6 +3,7 @@ import { Result, Tabs } from 'antd';
 import React, { useState } from 'react';
 
 import CoursePeopleTab from '../course-view-tabs/CoursePeopleTab';
+import CourseStudentTask from '../course-view-tabs/CourseStudentTask';
 import CourseViewTab from '../course-view-tabs/CourseViewTab';
 import StudentLayout from '../default-layout/StudentLayout';
 
@@ -20,7 +21,7 @@ function ViewStudentCourse({ cid }) {
         {
             label: 'Tasks',
             key: '2',
-            children: 'Add Task content',
+            children: <CourseStudentTask cid={cid} />,
             disabled: false,
         },
         {
