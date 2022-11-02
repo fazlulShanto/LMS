@@ -14,7 +14,7 @@ function OnlyShort() {
                             <Form.Item
                                 {...field}
                                 style={{
-                                    width: '80vw',
+                                    width: '78vw',
                                 }}
                                 label={`Short Question ${idx + 1}`}
                                 name={[field.name, 'shortq']}

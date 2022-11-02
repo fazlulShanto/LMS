@@ -38,7 +38,7 @@ function OnlyMCQ() {
                                             key={Math.random()}
                                             {...field}
                                             style={{
-                                                width: '80vw',
+                                                width: '75vw',
                                             }}
                                             label={`Question ${idx + 1}`}
                                             name={[field.name, 'question']}

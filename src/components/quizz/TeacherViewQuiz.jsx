@@ -1,69 +1,46 @@
 /* eslint-disable no-unused-vars */
-import { Button } from 'antd';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './teacherViewmcq.css';
 
 import { useLocation } from 'react-router-dom';
-import DefaultLayout from '../default-layout/DefaultLayout';
+import ViewQuizTeacher from './ViewQuizTeacher';
 
-function TeacherViewQuiz() {
+function TeacherViewQuiz({ quiz }) {
     const [pubRes, setPubres] = useState(true);
-    const [quiz, setQuiz] = useState(null);
+    // const quizStatus = true;
+    const quizStatus = Number(quiz?.time_end) < Date.now();
     const tid = useLocation().pathname.split('/').pop();
-    useEffect(() => {
-        const config = {
-            method: 'get',
-            url: `http://localhost:3003/api/task/${tid}`,
-            headers: {},
-        };
-        axios(config)
-            .then((response) => {
-                setQuiz(response.data);
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, [tid]);
-    const handlePublish = () => {
-        console.log('publishing');
-    };
+
     return (
-        <DefaultLayout>
+        <div>
             {quiz && (
                 <div>
-                    <div>
-                        <h3>Title: {quiz.task_title}</h3>
+                    <div className="quiz-info-card">
+                        <div>
+                            <h2 style={{ color: 'white' }}>Title: {quiz.task_title}</h2>
+                        </div>
+                        <div className="mcq-st-ed-time">
+                            <span>
+                                Starting Time: {new Date(Number(quiz.time_start)).toLocaleString()}
+                            </span>
+                            <span>
+                                Ending Time: {new Date(Number(quiz.time_end)).toLocaleString()}
+                            </span>
+                        </div>
+                        <div className="mcq-status">
+                            Status : {quizStatus ? 'Ended' : 'Running'}
+                        </div>
+                        <div>
+                            Total Marks : {quiz.mcq.length + quiz.short.length} * {quiz.marks} ={' '}
+                            {(quiz.mcq.length + quiz.short.length) * quiz.marks}
+                        </div>
                     </div>
-                    <div className="mcq-st-ed-time">
-                        <span>
-                            Starting Time: {new Date(Number(quiz.time_start)).toLocaleString()}
-                        </span>
-                        <span>Ending Time: {new Date(Number(quiz.time_end)).toLocaleString()}</span>
+                    <div className="quiz-questions-div">
+                        <ViewQuizTeacher quiz={quiz} />
                     </div>
-                    <div className="mcq-status">
-                        status : {Number(quiz.time_end) < Date.now() ? 'Ended' : 'Running'}
-                    </div>
-                    <div>
-                        Total Marks : {quiz.mcq.length + quiz.short.length} * {quiz.marks} ={' '}
-                        {(quiz.mcq.length + quiz.short.length) * quiz.marks}
-                    </div>
-                    <div>Responses : {quiz.examinees?.length}</div>
-                    <div>
-                        <Button
-                            onClick={handlePublish}
-                            type="primary"
-                            danger
-                            disabled={quiz.final_result}
-                        >
-                            Publish Result
-                        </Button>
-                    </div>
-                    {quiz.examinees.length ? <div>no response</div> : <div />}
                 </div>
             )}
-        </DefaultLayout>
+        </div>
     );
 }
 

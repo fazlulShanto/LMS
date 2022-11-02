@@ -1,7 +1,7 @@
 .mcq-st-ed-time {
     display: flex;
     font-weight: 600;
-    justify-content: start;
+    justify-content: flex-start;
     gap: 48px;
 }
 .mcq-status {

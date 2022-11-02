@@ -20,3 +20,23 @@
 .mr-bot-8 {
     margin-bottom: 8px;
 }
+
+.viewquizteacher-mcq .ant-checkbox-wrapper + .ant-checkbox-wrapper {
+    margin-left: 0;
+}
+.correct-mcq {
+    background-color: green;
+}
+.incorrect-mcq {
+    background-color: red;
+}
+.shortq-div-mark {
+    display: flex;
+    flex-direction: row;
+}
+.shortq-ans-question {
+    width: calc(100% - 90px);
+}
+.shortq-ans-marks {
+    width: 90px;
+}

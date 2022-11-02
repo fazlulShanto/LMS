@@ -17,10 +17,23 @@ function CourseStudentTask({ cid }) {
                 // console.log(`end : ${v.time_end}\nstart=${Date.now()}`);
                 let attempt = false;
                 let resultText = 'Absent';
+
                 v.examinees.forEach((se) => {
                     if (se.studentid === userUuid) {
+                        // console.log(`se`, se);
+                        // console.log(`v`, v);
                         attempt = true;
-                        resultText = v.final_result ? se.later || -99 : 'Not Published yet';
+                        if (v.final_result) {
+                            resultText = 'Not Evaluated yet';
+                            v.resultSheet.forEach((vv) => {
+                                if (vv.studentid === se.studentid) {
+                                    resultText = vv.marks;
+                                }
+                            });
+                        } else {
+                            // console.log(se);
+                            resultText = 'Not Published yet';
+                        }
                     }
                 });
                 const temp = {

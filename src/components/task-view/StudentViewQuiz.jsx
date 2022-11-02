@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import './teacherViewmcq.css';
+import '../quizz/teacherViewmcq.css';
 
 import { useLocation } from 'react-router-dom';
 import StudentLayout from '../default-layout/StudentLayout';
-import SubmitQuiz from './SubmitQuiz';
+import SubmitQuiz from '../quizz/SubmitQuiz';
 
 function StudentViewQuiz() {
     const [pubRes, setPubres] = useState(true);
