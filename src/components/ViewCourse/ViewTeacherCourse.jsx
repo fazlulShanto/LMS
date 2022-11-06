@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import CoursePeopleTab from '../course-view-tabs/CoursePeopleTab';
 import CourseTeacherTask from '../course-view-tabs/CourseTeacherTask';
 import CourseViewTab from '../course-view-tabs/CourseViewTab';
+import TeacherAnnouncement from '../course-view-tabs/TeacherAnnouncement';
 import DefaultLayout from '../default-layout/DefaultLayout';
 
 function ViewTeacherCourse({ cid }) {
@@ -14,19 +15,24 @@ function ViewTeacherCourse({ cid }) {
     };
     const tabItems = [
         {
-            label: 'Classroom',
+            label: 'Announement',
             key: '1',
+            children: <TeacherAnnouncement hidden={setOk} cid={cid} />,
+        },
+        {
+            label: 'Classroom',
+            key: '2',
             children: <CourseViewTab hidden={setOk} cid={cid} />,
         },
         {
             label: 'Tasks',
-            key: '2',
+            key: '3',
             children: <CourseTeacherTask cid={cid} />,
             disabled: false,
         },
         {
             label: 'People',
-            key: '3',
+            key: '4',
             children: <CoursePeopleTab cid={cid} />,
         },
     ];

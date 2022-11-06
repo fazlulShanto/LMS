@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import CoursePeopleTab from '../course-view-tabs/CoursePeopleTab';
 import CourseStudentTask from '../course-view-tabs/CourseStudentTask';
 import CourseViewTab from '../course-view-tabs/CourseViewTab';
+import StudentAnnouncement from '../course-view-tabs/StudentAnnouncement';
 import StudentLayout from '../default-layout/StudentLayout';
 
 function ViewStudentCourse({ cid }) {
@@ -13,6 +14,11 @@ function ViewStudentCourse({ cid }) {
         setOkCourse(val);
     };
     const tabItems = [
+        {
+            label: 'Announement',
+            key: '0',
+            children: <StudentAnnouncement hidden={setOk} cid={cid} />,
+        },
         {
             label: 'Classroom',
             key: '1',

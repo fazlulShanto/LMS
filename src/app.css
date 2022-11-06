@@ -40,3 +40,18 @@
 .shortq-ans-marks {
     width: 90px;
 }
+.announcement-list-div {
+    margin-top: 8px;
+    background-color: azure;
+    padding: 16px 8px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.single-announcement {
+    /* border: 1px solid red; */
+    margin-bottom: 8px;
+}
+.single-announcement pre {
+    background-color: aquamarine;
+    overflow-wrap: break-word;
+}
