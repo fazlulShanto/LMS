@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-vars */
 import { Button, message, Space, Table } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import AdminLayout from './AdminLayout';
 
@@ -151,6 +153,7 @@ function AdminListStudents() {
             .then((response) => {
                 console.log(JSON.stringify(response.data));
                 setListOfStudents(response.data);
+                // console.log(listOfStudents);
             })
             .catch((error) => {
                 console.log(error);
@@ -168,7 +171,14 @@ function AdminListStudents() {
                 key={Math.random()}
             >
                 {/* <Column title="Name" dataIndex="name" key="name" /> */}
-                <Column title="Name" dataIndex="role" key="role" />
+                <Column
+                    title="Name"
+                    dataIndex="name"
+                    key="role"
+                    render={(_, record) => (
+                        <Link to={`/profile/${record.user_uuid}`}>{record.name}</Link>
+                    )}
+                />
                 <Column title="Email" dataIndex="email" key="email" />
                 <Column
                     title="Action"

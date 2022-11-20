@@ -26,7 +26,8 @@ import MyCourses from './pages/courses/MyCourses';
 import Dashboard from './pages/DashBoard/Dashboard';
 import ForgotPassword from './pages/forgot-password/ForgotPassword';
 import MessengerPage from './pages/Messenger/MessengerPage';
-import ProfilePage from './pages/profile/ProfilePage';
+import EditProfilePage from './pages/profile/EditProfilePage';
+import ViewProfilePage from './pages/profile/ViewProfilePage';
 import SchedulePage from './pages/schedule/SchedulePage';
 import SettingsPage from './pages/settings/SettingsPage';
 import Signup from './pages/Signup/Signup';
@@ -36,13 +37,6 @@ function temp() {
 }
 function App() {
     const { loggedIn } = useContext(AuthContext);
-
-    // const paged = () => (loggedIn ? <Dashboard /> : <Loginform />);
-    // const pageNo = 1;
-    // let renderPage = <Dashboard />;
-    // if (pageNo === 2) {
-    //     renderPage = <Loginform />;
-    // }
     return (
         <div className="app">
             <Routes>
@@ -88,7 +82,8 @@ function App() {
                     <Route path="/schedule" element={<SchedulePage />} />
                     <Route path="/mycourses" element={<MyCourses />} />
 
-                    <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/profile/:id" element={<ViewProfilePage />} />
+                    <Route path="/edit-profile" element={<EditProfilePage />} />
                     <Route path="user/:id" element={<User />} />
                     <Route path="course/:id" element={<Course />} />
                     <Route path="course" element={<Course />} />

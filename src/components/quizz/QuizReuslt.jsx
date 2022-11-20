@@ -48,7 +48,7 @@ function QuizReuslt({ quiz }) {
 
                     const tempObj = {
                         key: Math.random(),
-                        name: data.username,
+                        name: `${data.firstname} ${data.lastname}`,
                         taskid: quiz.taskid,
                         student_id: data.student_id,
                         user_uuid: data.user_uuid,
@@ -57,7 +57,7 @@ function QuizReuslt({ quiz }) {
                     return tempObj;
                 });
                 const dd = await Promise.all(kd);
-                console.log(dd);
+                // console.log(dd);
                 setStudentData(dd);
             };
             myCall();

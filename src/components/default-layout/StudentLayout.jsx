@@ -81,6 +81,10 @@ function StudentLayout(props) {
         if (findRes != -1) {
             return [`${findRes}`];
         }
+        if (selectedKey.includes('edit-profile')) {
+            console.log('here');
+            return { label: `profile` };
+        }
         return [null];
     };
     const MenuItems = pages.map((singleItem, idx) =>
@@ -128,7 +132,7 @@ function StudentLayout(props) {
                         // backgroundColor: '#122033',
                     }}
                 >
-                    <Headercomp pageName={pages[highlight().pop()]?.label || ''} />
+                    <Headercomp pageName={highlight()?.label || ' '} />
                 </Header>
                 <Content
                     style={{

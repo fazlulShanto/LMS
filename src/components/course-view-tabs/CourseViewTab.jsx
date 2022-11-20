@@ -1,8 +1,11 @@
 /* eslint-disable no-unused-vars */
+import { Collapse } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Lesson from '../lesson/Lesson';
+
+const { Panel } = Collapse;
 
 function CourseViewTab({ hidden }) {
     const [values, setValues] = useState({});
@@ -56,14 +59,23 @@ function CourseViewTab({ hidden }) {
                 </h1>
                 <h3>Teacher : {courseTeacher}</h3>
             </div>
-            <div className="course-syllabus-div">
+            {/* <div className="course-syllabus-div">
                 <h2>Syllabus & Recommended Books</h2>
-                <p>{courseDesc}</p>
+                <p style={{ whiteSpace: 'pre-wrap' }}>{courseDesc}</p>
             </div>
             <div className="course-marks-div">
                 <h2>Marks distribution & Others Info</h2>
-                <p> {otherInfo} </p>
-            </div>
+                <p style={{ whiteSpace: 'pre-wrap' }}> {otherInfo} </p>
+            </div> */}
+            <Collapse>
+                <Panel header="Syllabus & Recommended Books" key="1">
+                    <p style={{ whiteSpace: 'pre-wrap' }}>{courseDesc}</p>
+                </Panel>
+                <Panel header="Marks distribution & Others Info" key="2">
+                    <p style={{ whiteSpace: 'pre-wrap' }}> {otherInfo} </p>
+                </Panel>
+            </Collapse>
+
             <div className="course-lesson-div">
                 <Lesson delta={courseLessons} />
             </div>

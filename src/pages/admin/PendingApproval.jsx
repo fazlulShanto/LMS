@@ -168,6 +168,7 @@ function PendingApproval() {
                 key={Math.random()}
             >
                 {/* <Column title="Name" dataIndex="name" key="name" /> */}
+                <Column title="Name" dataIndex="name" key="name" />
                 <Column title="Email" dataIndex="email" key="email" />
                 <Column title="Role" dataIndex="role" key="role" />
                 <Column

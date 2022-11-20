@@ -5,10 +5,11 @@
 }
 .profile_photo_div {
     height: 100px;
+    position: relative;
     width: 100px;
     background-color: aliceblue;
     border-radius: 50%;
-    /* border: 1px solid red; */
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,6 +21,7 @@
 }
 .profileCardContainer {
     /* border: 1px solid blue; */
+    /* border: 1px solid red; */
     padding: 8px;
     display: flex;
     flex-direction: column;
@@ -37,4 +39,32 @@
 }
 .socialIconItem {
     font-size: 24px;
+    /* margin: 0 16px; */
+}
+.upload-icon-div {
+    position: absolute;
+    font-size: 8px;
+    top: 70px;
+    right: 0px;
+}
+.profile-details-div {
+    /* border: 1px solid red; */
+    margin-top: 16px;
+}
+
+.profile-details-label {
+    text-align: center;
+    padding: 8px 16px;
+    margin-top: 8px;
+    /* margin-right: 8px; */
+    background-color: aliceblue;
+    /* border: 1px solid blue; */
+}
+
+.profile-details-value {
+    text-align: center;
+    padding: 8px 16px;
+    margin-top: 8px;
+    background-color: aliceblue;
+    /* border: 1px solid green; */
 }

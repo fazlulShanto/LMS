@@ -90,6 +90,10 @@ function DefaultLayout(props) {
         if (selectedKey.includes('course/')) {
             return { label: `Class Code: ${selectedKey.split('/').pop()}` };
         }
+        if (selectedKey.includes('edit-profile')) {
+            console.log('here');
+            return { label: `profile` };
+        }
         return [null];
     };
     const MenuItems = pages.map((singleItem, idx) =>

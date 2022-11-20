@@ -3,7 +3,7 @@
 import { Avatar, Button, List, message } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-
+import { Link } from 'react-router-dom';
 import './coursepeopletab.css';
 
 function RemoveBtn({ sid, txt, clickFnc }) {
@@ -80,6 +80,7 @@ function TeacherPeopleTab({ cid }) {
             .then((response) => {
                 const { approved, unAprroved, teacherInfo } = response.data;
                 setApprovedStd(approved);
+                // console.log(approved);
                 setUnApprovedStd(unAprroved);
                 setTeacher(teacherInfo);
             })
@@ -96,8 +97,8 @@ function TeacherPeopleTab({ cid }) {
                 <List>
                     <List.Item className="course-people-list-item">
                         <List.Item.Meta
-                            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                            title={tcher?.name}
+                            avatar={<Avatar src={`http://localhost:3003/users/${tcher?.id}.png`} />}
+                            title={<Link to={`/profile/${tcher?.id}`}>{tcher?.name}</Link>}
                             description={tcher?.email}
                         />
                     </List.Item>
@@ -125,8 +126,12 @@ function TeacherPeopleTab({ cid }) {
                                 }
                             >
                                 <List.Item.Meta
-                                    avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                                    title={<a href="https://ant.design">{item.name}</a>}
+                                    avatar={
+                                        <Avatar
+                                            src={`http://localhost:3003/users/${item?.id}.png`}
+                                        />
+                                    }
+                                    title={<Link to={`/profile/${item.id}`}>{item.name}</Link>}
                                     description={item.email}
                                 />
                             </List.Item>
@@ -173,7 +178,7 @@ function TeacherPeopleTab({ cid }) {
                             >
                                 <List.Item.Meta
                                     avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                                    title={<a href="https://ant.design">{item.name}</a>}
+                                    title={<Link to={`/profile/${item.id}`}>{item.name}</Link>}
                                     description={item.email}
                                 />
                             </List.Item>

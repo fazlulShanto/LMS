@@ -9,7 +9,7 @@ function StudentSettings() {
     return (
         <StudentLayout>
             <Button>
-                <Link to="/profile">Edit Profile</Link>
+                <Link to="/edit-profile">Edit Profile</Link>
             </Button>
         </StudentLayout>
     );

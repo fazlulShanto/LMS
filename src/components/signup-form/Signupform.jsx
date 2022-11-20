@@ -51,7 +51,8 @@ function SignupForm() {
         const data = JSON.stringify({
             email: values.email,
             pwd: values.password,
-            username: values.username,
+            firstname: values.firstname,
+            lastname: values.lastname,
             isTeacher: values.isTeacher,
             form_otp: values.form_otp,
         });
@@ -145,18 +146,33 @@ function SignupForm() {
                         />
                     </Form.Item>
                     <Form.Item
-                        name="username"
+                        name="firstname"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your User Name',
+                                message: 'Please Enter your First Name',
                                 type: 'string',
                             },
                         ]}
                     >
                         <Input
                             prefix={<UserOutlined className="site-form-item-icon" />}
-                            placeholder="User Name"
+                            placeholder="First Name"
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name="lastname"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please Enter your Last Name',
+                                type: 'string',
+                            },
+                        ]}
+                    >
+                        <Input
+                            prefix={<UserOutlined className="site-form-item-icon" />}
+                            placeholder="Last Name"
                         />
                     </Form.Item>
                     <Form.Item

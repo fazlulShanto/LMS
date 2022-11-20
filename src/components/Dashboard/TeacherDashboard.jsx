@@ -59,7 +59,7 @@ function TeacherDashboard() {
                     <Todo userId={userUuid} />
                 </Col>
             </Row>
-            {courseList.length && (
+            {courseList?.length ? (
                 <Row gutter={[0, 8]}>
                     {courseList.map((sc) => (
                         <Col span={12} key={Math.random()}>
@@ -67,6 +67,8 @@ function TeacherDashboard() {
                         </Col>
                     ))}
                 </Row>
+            ) : (
+                <div />
             )}
         </DefaultLayout>
     );
