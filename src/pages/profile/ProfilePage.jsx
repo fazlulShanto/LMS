@@ -1,3 +1,5 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import DefaultLayout from '../../components/default-layout/DefaultLayout';
 import StudentLayout from '../../components/default-layout/StudentLayout';

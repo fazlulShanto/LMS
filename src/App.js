@@ -28,6 +28,7 @@ import ForgotPassword from './pages/forgot-password/ForgotPassword';
 import MessengerPage from './pages/Messenger/MessengerPage';
 import EditProfilePage from './pages/profile/EditProfilePage';
 import ViewProfilePage from './pages/profile/ViewProfilePage';
+import ResetPasswordPage from './pages/Reset-password/ResetPasswordPage';
 import SchedulePage from './pages/schedule/SchedulePage';
 import SettingsPage from './pages/settings/SettingsPage';
 import Signup from './pages/Signup/Signup';
@@ -76,6 +77,7 @@ function App() {
                 {/* Teacher | Student | Admin Route */}
                 <Route element={<RequireAuth allowedRoles={['Teacher', 'Student', 'Admin']} />}>
                     <Route path="/settings" element={<SettingsPage />} />
+                    <Route path="/reset-password" element={<ResetPasswordPage />} />
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/dash" element={<Dashboard />} />
                     <Route path="/chat" element={<MessengerPage />} />

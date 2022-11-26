@@ -1,5 +1,7 @@
 @import "~antd/dist/antd.css";
-
+a {
+    text-decoration: none;
+}
 .logo {
     height: 32px;
     margin: 16px;
@@ -54,4 +56,36 @@
 .single-announcement pre {
     background-color: aquamarine;
     overflow-wrap: break-word;
+}
+
+.settings-button-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: fit-content;
+    /* border: 1px solid red; */
+    justify-content: space-around;
+}
+.click-btn:not(:last-of-type) {
+    margin-right: 25px;
+}
+.click-btn {
+    width: fit-content;
+
+    height: 64px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.click-btn:hover {
+    color: white;
+    background-color: rgb(66, 40, 95);
+    border: 1px solid;
 }
