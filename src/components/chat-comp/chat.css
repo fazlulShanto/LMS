@@ -1,0 +1,118 @@
+.chat-container {
+    display: flex;
+    height: 87vh;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.chat-user-container {
+    width: 28%;
+    border-radius: 8px;
+    padding: 8px 0px;
+    min-width: fit-content;
+    background-color: #edf2f8;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    /* background-color: #f2f2f2; */
+}
+
+.chat-message-container {
+    width: 70%;
+    min-width: fit-content;
+    border-radius: 8px;
+    height: 100%;
+    padding: 4px;
+    padding-top: 0;
+    background-color: #edf2f8;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+}
+.chat-avatar-card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.chat-avatar {
+    margin-top: 8px;
+    margin-left: 8px;
+    margin-bottom: 8px;
+}
+
+.chat-avatar-title {
+    margin-left: 12px;
+    font-weight: 600;
+}
+
+.chat-action-cotainer-div {
+    /* padding: 8px; */
+    padding-bottom: 8px;
+    position: relative;
+    display: block;
+}
+.chat-action-heading {
+    margin-left: 8px;
+    margin-top: 8px;
+    position: sticky;
+}
+.chat-message {
+    margin-left: 8px;
+    margin-top: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    clear: both;
+    width: fit-content;
+    color: white;
+    font-size: 1.1rem;
+    /* background-color: #410056; */
+    background: rgb(131, 58, 180);
+    background: linear-gradient(
+        317deg,
+        rgba(131, 58, 180, 1) 0%,
+        rgba(78, 61, 194, 1) 100%,
+        rgba(252, 176, 69, 1) 100%
+    );
+}
+.chat-message.own {
+    text-align: right;
+    width: fit-content;
+    margin-right: 8px;
+    float: right;
+    color: black;
+    background: rgb(34, 193, 195);
+    background: linear-gradient(
+        128deg,
+        rgba(34, 193, 195, 1) 0%,
+        rgba(253, 146, 45, 1) 100%
+    );
+    /* background-color: #fd6f3b; */
+}
+.message-time {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.chat-input-div {
+    width: 100%;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.chat-text-and-input-div {
+    height: calc(87vh - 80px);
+    /* position: relative; */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+div.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding-top: 4px;
+    background-color: #edf2f8;
+    /* background-color: yellow; */
+}

@@ -16,7 +16,6 @@ import Course from './components/Single-Course/Course';
 import UnAuthrorized from './components/unauthorized/UnAuthrorized';
 import User from './components/users/User';
 import AuthContext from './Context/AuthContext';
-import AdminChat from './pages/admin/AdminChat';
 
 import AdminListStudents from './pages/admin/AdminListStudents';
 import AdminListTeacher from './pages/admin/AdminListTeacher';
@@ -60,7 +59,7 @@ function App() {
                     <Route path="/admin-list-teacher" element={<AdminListTeacher />} />
                     <Route path="/pending-approval" element={<PendingApproval />} />
                     <Route path="/admin-settings" element={<AdminSettings />} />
-                    <Route path="/admin-chat" element={<AdminChat />} />
+                    <Route path="/admin-chat" element={<MessengerPage />} />
                 </Route>
                 {/* Teacher Only Routes */}
                 <Route element={<RequireAuth allowedRoles={['Teacher']} />}>
