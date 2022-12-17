@@ -8,7 +8,9 @@ import axios from 'axios';
 import React, { useState } from 'react';
 
 function ValidateSingleQuiz({ handleOk, handleCancel, data }) {
-    const [totalMarks, setTotalMarks] = useState(data.response.correct.length);
+    const Data = data.response;
+
+    const [totalMarks, setTotalMarks] = useState(Data.response.correct.length);
     const [loading, setLoading] = useState(false);
     const [form] = useForm();
     // console.log(data);
@@ -50,13 +52,13 @@ function ValidateSingleQuiz({ handleOk, handleCancel, data }) {
         const rtObj = {};
         let isCorrect = false;
         let userAns = [];
-        data.response.correct.forEach((v) => {
+        Data.response?.correct?.forEach((v) => {
             if (v.qid === qid) {
                 isCorrect = true;
             }
         });
         if (!isCorrect) {
-            data.response.incorrect.forEach((v) => {
+            Data.response?.incorrect?.forEach((v) => {
                 if (v.qid === qid) {
                     userAns = v.userans;
                 }
@@ -69,7 +71,7 @@ function ValidateSingleQuiz({ handleOk, handleCancel, data }) {
     };
     const getShortQA = (id) => {
         let rt;
-        data.response.shortans.forEach((v) => {
+        data.response?.shortans?.forEach((v) => {
             if (v.qid === id) {
                 rt = v.ans;
             }
@@ -79,7 +81,7 @@ function ValidateSingleQuiz({ handleOk, handleCancel, data }) {
     };
     const handleMarks = (ev) => {
         const test = Number(ev) || 0;
-        const mcqMarks = data.response.correct.length;
+        const mcqMarks = Data.response.correct.length;
         const vd = Object.values(form.getFieldsValue())
             .map((v) => {
                 const temp = Number(v) > 0 ? Number(v) : 0;
@@ -157,6 +159,7 @@ function ValidateSingleQuiz({ handleOk, handleCancel, data }) {
                                             options[v - 1].ans = true;
                                         });
                                     }
+                                    console.log(userAns);
                                     let clsName = 'incorrect-mcq';
 
                                     const objStyle = {
