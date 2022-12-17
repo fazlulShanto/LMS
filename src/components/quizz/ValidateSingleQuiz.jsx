@@ -71,7 +71,7 @@ function ValidateSingleQuiz({ handleOk, handleCancel, data }) {
     };
     const getShortQA = (id) => {
         let rt;
-        data.response?.shortans?.forEach((v) => {
+        Data.response?.shortans?.forEach((v) => {
             if (v.qid === id) {
                 rt = v.ans;
             }

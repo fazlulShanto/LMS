@@ -37,7 +37,7 @@ function CourseStudentTask({ cid }) {
                     }
                 });
                 let totalMarks = v.marks;
-                if (v.type === 'quiz') {
+                if (v.task_type === 'quiz') {
                     totalMarks = (v.mcq.length + v.short.length) * v.marks;
                 }
                 const temp = {
