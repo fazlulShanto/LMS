@@ -11,10 +11,12 @@ function CourseTeacherTask({ cid }) {
     const formateTaskList = (tl) => {
         if (tl?.length) {
             const ntl = tl.map((v) => {
-                console.log(`end : ${v.time_end}\nstart=${Date.now()}`);
+                // console.log(v);
+                // console.log(`end : ${v.time_end}\nstart=${Date.now()}`);
                 let totalMarks = v.marks;
-                if (v.type == 'quiz') {
+                if (v.task_type == 'quiz') {
                     totalMarks = (v.mcq.length + v.short.length) * v.marks;
+                    console.log('*************total=', totalMarks);
                 }
                 const temp = {
                     key: Math.random(),
