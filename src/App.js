@@ -2,6 +2,7 @@
 import { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './app.css';
+import ViewAssignment from './components/assignment/ViewAssignment';
 import AddLesson from './components/create-course/AddLesson';
 import CreateCourse from './components/create-course/CreateCourse';
 import NewLesson from './components/create-course/NewLesson';
@@ -76,6 +77,7 @@ function App() {
                 {/* Teacher | Student | Admin Route */}
                 <Route element={<RequireAuth allowedRoles={['Teacher', 'Student', 'Admin']} />}>
                     <Route path="/settings" element={<SettingsPage />} />
+                    <Route path="/view-assignment/:id" element={<ViewAssignment />} />
                     <Route path="/reset-password" element={<ResetPasswordPage />} />
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/dash" element={<Dashboard />} />

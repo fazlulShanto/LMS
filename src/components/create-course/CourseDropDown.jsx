@@ -57,7 +57,7 @@ function CourseDropDown({ detectSelect }) {
         <Select
             placeholder="Select a course"
             style={{
-                width: 200,
+                width: '50%',
             }}
             onChange={handleChange}
             options={JSON.parse(courseList)}

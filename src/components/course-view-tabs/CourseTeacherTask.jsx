@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { Button, Table } from 'antd';
@@ -11,12 +12,16 @@ function CourseTeacherTask({ cid }) {
         if (tl?.length) {
             const ntl = tl.map((v) => {
                 console.log(`end : ${v.time_end}\nstart=${Date.now()}`);
+                let totalMarks = v.marks;
+                if (v.type == 'quiz') {
+                    totalMarks = (v.mcq.length + v.short.length) * v.marks;
+                }
                 const temp = {
                     key: Math.random(),
                     taskid: v.taskid,
                     task_title: v.task_title,
                     task_type: v.task_type,
-                    marks: (v.mcq.length + v.short.length) * v.marks,
+                    marks: totalMarks,
                     status: Number(v.time_end) < Date.now() ? 'Ended' : 'Running',
                     students: v.examinees.length,
                 };
@@ -27,9 +32,13 @@ function CourseTeacherTask({ cid }) {
         return [];
     };
     const nav = useNavigate();
-    const handleViewTask = (tid) => {
+    const handleViewTask = (tid, tt) => {
         console.log(tid);
-        nav(`/view-quiz/${tid}`);
+        if (tt === 'quiz') {
+            nav(`/view-quiz/${tid}`);
+        } else {
+            nav(`/view-assignment/${tid}`);
+        }
     };
     useEffect(() => {
         const config = {
@@ -81,7 +90,7 @@ function CourseTeacherTask({ cid }) {
         {
             key: 'action',
             render: (_, rc) => (
-                <Button type="primary" onClick={() => handleViewTask(rc.taskid)}>
+                <Button type="primary" onClick={() => handleViewTask(rc.taskid, rc.task_type)}>
                     View Task
                 </Button>
             ),

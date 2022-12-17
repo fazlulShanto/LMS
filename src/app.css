@@ -89,3 +89,7 @@ a {
     background-color: rgb(66, 40, 95);
     border: 1px solid;
 }
+.pdf-reader-div {
+    height: 80vh;
+    width: 100%;
+}
