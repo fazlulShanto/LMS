@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Spin } from 'antd';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
@@ -30,7 +31,16 @@ export default function Greetings() {
                 setLoading(false);
                 setWeather(weatherInfoObj);
             })
-            .catch((er) => console.error(er));
+            .catch((er) => {
+                const weatherInfoObj = {
+                    humidity: 0,
+                    temp: 0,
+                    wind_speed: 0,
+                    rain_probability: 0,
+                };
+                setLoading(false);
+                setWeather(weatherInfoObj);
+            });
     };
     useEffect(() => {
         getWeatherInfo();
